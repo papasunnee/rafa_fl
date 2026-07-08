@@ -15,9 +15,12 @@ This module provides:
 import numpy as np
 
 
+SELECTION_MODES = {"fedcs": "fedcs", "oort": "oort"}
+
+
 def build_strategy(name, fraction_fit, num_clients, min_active_fraction=0.1,
                    evaluate_metrics_aggregation_fn=None, evaluate_fn=None,
-                   param_shapes=None):
+                   param_shapes=None, selection_seed=0, oort_exploration_floor=0.1):
     """
     Return a configured Flower strategy for a baseline, or the RAFA-FL strategy.
     Client-side behaviour (proximal term, control variates) is selected in the
@@ -40,6 +43,9 @@ def build_strategy(name, fraction_fit, num_clients, min_active_fraction=0.1,
     # communication-cost metrics all methods are compared on.
     return RAFAFLStrategy(min_active_fraction=min_active_fraction,
                           scaffold=(name == "scaffold"), param_shapes=param_shapes,
+                          selection_mode=SELECTION_MODES.get(name, "random"),
+                          selection_seed=selection_seed,
+                          oort_exploration_floor=oort_exploration_floor,
                           **common)
 
 

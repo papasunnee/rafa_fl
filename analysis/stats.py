@@ -53,13 +53,19 @@ def mean_ci(values, confidence=0.95):
     return mean, float(h)
 
 
-def compare_all(rafa_by_seed, baselines_by_seed, alpha=0.05):
+def compare_all(rafa_by_seed, baselines_by_seed, alpha=0.05, num_comparisons=None):
     """
     rafa_by_seed: list of per-seed metric values for RAFA-FL
     baselines_by_seed: dict {baseline_name: [per-seed values]}
+    num_comparisons: fixed family size for the Bonferroni correction. Pass the
+        pre-registered number of comparisons (e.g. EXPERIMENT.bonferroni_baselines)
+        rather than leaving it to default to len(baselines_by_seed) -- if this is
+        called before every baseline has results yet, an inferred count silently
+        loosens the correction (interim peeking).
     Returns a dict of comparison results with Bonferroni-corrected verdicts.
     """
-    thr = bonferroni_threshold(alpha, len(baselines_by_seed))
+    thr = bonferroni_threshold(alpha, num_comparisons if num_comparisons is not None
+                               else len(baselines_by_seed))
     rafa_mean, rafa_h = mean_ci(rafa_by_seed)
     out = {"rafa_mean": rafa_mean, "rafa_ci95": rafa_h,
            "bonferroni_threshold": thr, "comparisons": {}}

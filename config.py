@@ -58,6 +58,7 @@ class ExperimentConfig:
 
     # Baseline hyperparameters (Section 4.7)
     fedprox_mu: float = 0.01            # proximal term weight
+    oort_exploration_floor: float = 0.1 # fraction of OORT selections reserved for exploration
 
     # Statistical
     bonferroni_baselines: int = 5

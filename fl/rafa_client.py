@@ -120,14 +120,21 @@ class RAFAFLClient(fl.client.NumPyClient):
               scaffold_control=None, scaffold_local=None):
         self.model.train()
         crit = nn.CrossEntropyLoss(weight=class_weights)
-        opt = torch.optim.SGD(self.model.parameters(),
-                              lr=self.model_cfg.lr, momentum=self.model_cfg.momentum)
-        steps = 0
+        # SCAFFOLD's control-variate correction (Option II) is derived for plain
+        # SGD. A constant per-step correction term compounds through a momentum
+        # buffer's exponential moving average (roughly 1/(1-momentum) = 10x at
+        # momentum=0.9), which blows up the weights within a few dozen rounds --
+        # confirmed empirically (accuracy collapsed to chance level ~round 20).
+        # Momentum is disabled specifically for the SCAFFOLD-corrected path.
+        momentum = 0.0 if scaffold_control is not None else self.model_cfg.momentum
+        opt = torch.optim.SGD(self.model.parameters(), lr=self.model_cfg.lr, momentum=momentum)
+        steps, loss_sum = 0, 0.0
         for _ in range(epochs):
             for xb, yb in train_loader:
                 xb, yb = xb.to(self.device), yb.to(self.device)
                 opt.zero_grad()
                 loss = crit(self.model(xb), yb)
+                loss_sum += loss.item()
                 if proximal_mu > 0 and proximal_global is not None:
                     loss = loss + proximal_penalty(self.model, proximal_global, proximal_mu)
                 loss.backward()
@@ -137,7 +144,7 @@ class RAFAFLClient(fl.client.NumPyClient):
                             p.grad += torch.tensor(c - ci, device=p.device, dtype=p.grad.dtype)
                 opt.step()
                 steps += 1
-        return steps
+        return steps, loss_sum / max(steps, 1)
 
     # ---- Flower fit (Section 4.5.2) ---------------------------------------
     def fit(self, parameters, config):
@@ -180,18 +187,18 @@ class RAFAFLClient(fl.client.NumPyClient):
         epochs = self.model_cfg_epochs()
 
         if self.method == "fedprox":
-            self._train(epochs, train_loader, class_weights,
-                       proximal_global=parameters, proximal_mu=EXPERIMENT.fedprox_mu)
+            _, avg_loss = self._train(epochs, train_loader, class_weights,
+                                      proximal_global=parameters, proximal_mu=EXPERIMENT.fedprox_mu)
             return get_parameters(self.model), len(train_loader.dataset), \
-                {"deferred": False, "cid": self.cid, "epochs": epochs}
+                {"deferred": False, "cid": self.cid, "epochs": epochs, "train_loss": avg_loss}
 
         if self.method == "scaffold":
             shapes = [p.shape for p in parameters]
             c_global = (pickle.loads(config["global_control"])
                        if "global_control" in config else [np.zeros(s, dtype=np.float32) for s in shapes])
             c_local = load_control_variate(self.state_dir, self.cid, shapes)
-            steps = self._train(epochs, train_loader, class_weights,
-                               scaffold_control=c_global, scaffold_local=c_local)
+            steps, avg_loss = self._train(epochs, train_loader, class_weights,
+                                          scaffold_control=c_global, scaffold_local=c_local)
             w_local = get_parameters(self.model)
             denom = max(steps, 1) * self.model_cfg.lr
             c_local_new = [ci - c + (wg - wl) / denom
@@ -199,13 +206,13 @@ class RAFAFLClient(fl.client.NumPyClient):
             delta_c = [new - old for new, old in zip(c_local_new, c_local)]
             save_control_variate(self.state_dir, self.cid, c_local_new)
             return w_local, len(train_loader.dataset), {
-                "deferred": False, "cid": self.cid, "epochs": epochs,
+                "deferred": False, "cid": self.cid, "epochs": epochs, "train_loss": avg_loss,
                 "scaffold_delta_c": pickle.dumps(delta_c),
             }
 
-        self._train(epochs, train_loader, class_weights)
+        _, avg_loss = self._train(epochs, train_loader, class_weights)
         return get_parameters(self.model), len(train_loader.dataset), \
-            {"deferred": False, "cid": self.cid, "epochs": epochs}
+            {"deferred": False, "cid": self.cid, "epochs": epochs, "train_loss": avg_loss}
 
     def _save_agent_state(self):
         if self.state_dir:

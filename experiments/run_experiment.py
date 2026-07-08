@@ -122,8 +122,13 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
             pred = out.argmax(1).cpu().numpy()
         acc = float((pred == y_test).mean())
         f1 = f1_score(y_test, pred, average="macro", zero_division=0)
-        history["accuracy"].append(acc)
-        history["macro_f1"].append(float(f1))
+        # Flower's Server.fit() evaluates once at server_round=0 (the untrained
+        # global model) before the round loop even starts, then again after
+        # each of rounds 1..num_rounds. Excluding round 0 keeps accuracy_curve
+        # at exactly num_rounds entries, index i == round i+1.
+        if server_round > 0:
+            history["accuracy"].append(acc)
+            history["macro_f1"].append(float(f1))
         return loss, {"accuracy": acc, "macro_f1": float(f1)}
 
     strategy_name = "rafa_fl" if (method == "rafa_fl" or ablation) else method
@@ -132,6 +137,7 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
         fraction_fit=EXPERIMENT.fraction_fit, num_clients=num_clients,
         evaluate_fn=centralised_evaluate_fn,
         param_shapes=param_shapes if strategy_name == "scaffold" else None,
+        selection_seed=seed, oort_exploration_floor=EXPERIMENT.oort_exploration_floor,
     )
 
     def on_fit_config(server_round):

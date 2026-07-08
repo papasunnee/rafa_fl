@@ -18,6 +18,20 @@ from experiments.run_experiment import run, ABLATIONS
 
 BASELINES = ["fedavg", "fedprox", "scaffold", "fedcs", "oort"]
 ALL_METHODS = ["rafa_fl"] + BASELINES
+MAX_ATTEMPTS = 3   # Flower/Ray simulation is occasionally flaky between back-to-back
+                   # runs in one long-lived process; retry before giving up on a job.
+
+
+def _run_with_retries(label, *args, **kwargs):
+    for attempt in range(1, MAX_ATTEMPTS + 1):
+        try:
+            run(*args, **kwargs)
+            return True
+        except Exception:
+            print(f"  FAILED (attempt {attempt}/{MAX_ATTEMPTS}): {label}")
+            traceback.print_exc()
+    print(f"  GAVE UP after {MAX_ATTEMPTS} attempts: {label}")
+    return False
 
 
 def main_grid(out_dir, quick=False):
@@ -29,12 +43,9 @@ def main_grid(out_dir, quick=False):
     jobs = list(itertools.product(ALL_METHODS, alphas, ns, seeds, drift_opts))
     print(f"Main grid: {len(jobs)} runs")
     for i, (method, alpha, n, seed, drift) in enumerate(jobs, 1):
-        print(f"[{i}/{len(jobs)}] {method} a={alpha} n={n} s={seed} drift={drift}")
-        try:
-            run(method, alpha, n, seed, drift, out_dir)
-        except Exception:
-            print(f"  FAILED: {method} a={alpha} n={n} s={seed} drift={drift}")
-            traceback.print_exc()
+        label = f"{method} a={alpha} n={n} s={seed} drift={drift}"
+        print(f"[{i}/{len(jobs)}] {label}")
+        _run_with_retries(label, method, alpha, n, seed, drift, out_dir)
 
 
 def ablation_grid(out_dir, quick=False):
@@ -44,12 +55,9 @@ def ablation_grid(out_dir, quick=False):
     jobs = list(itertools.product(ABLATIONS.keys(), seeds))
     print(f"Ablation grid: {len(jobs)} runs")
     for i, (ablation, seed) in enumerate(jobs, 1):
-        print(f"[{i}/{len(jobs)}] {ablation} a={a} n={n} s={seed} drift=True")
-        try:
-            run("rafa_fl", a, n, seed, True, out_dir, ablation=ablation)
-        except Exception:
-            print(f"  FAILED ablation: {ablation} s={seed}")
-            traceback.print_exc()
+        label = f"{ablation} a={a} n={n} s={seed} drift=True"
+        print(f"[{i}/{len(jobs)}] {label}")
+        _run_with_retries(label, "rafa_fl", a, n, seed, True, out_dir, ablation=ablation)
 
 
 if __name__ == "__main__":

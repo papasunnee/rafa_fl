@@ -94,8 +94,15 @@ def significance_table(runs, alpha, num_clients, drift, metric="peak_accuracy"):
 
     rafa_vals = [rafa_by_seed[s] for s in common]
     baseline_vals = {b: [v[s] for s in common] for b, v in baselines_by_seed.items()}
-    result = compare_all(rafa_vals, baseline_vals, alpha=EXPERIMENT.alpha_significance)
+    # Fixed family size (EXPERIMENT.bonferroni_baselines), not len(baseline_vals) --
+    # this table is safe to run against a partially-complete results/ directory,
+    # and inferring the correction from whatever baselines happen to have
+    # results yet would silently loosen it (interim peeking) until all 5 finish.
+    result = compare_all(rafa_vals, baseline_vals, alpha=EXPERIMENT.alpha_significance,
+                         num_comparisons=EXPERIMENT.bonferroni_baselines)
     result["n_common_seeds"] = len(common)
+    if len(baseline_vals) < len(BASELINES):
+        result["incomplete_baselines"] = sorted(set(BASELINES) - set(baseline_vals))
     return result
 
 
@@ -121,8 +128,12 @@ def ablation_table(runs, metric="peak_accuracy"):
 
     full_vals = [full_by_seed[s] for s in common]
     variant_vals = {a: [v[s] for s in common] for a, v in variants_by_seed.items()}
-    result = compare_all(full_vals, variant_vals, alpha=EXPERIMENT.alpha_significance)
+    # Fixed family size (len(ABLATIONS)), same reasoning as significance_table.
+    result = compare_all(full_vals, variant_vals, alpha=EXPERIMENT.alpha_significance,
+                         num_comparisons=len(ABLATIONS))
     result["n_common_seeds"] = len(common)
+    if len(variant_vals) < len(ABLATIONS):
+        result["incomplete_ablations"] = sorted(set(ABLATIONS) - set(variant_vals))
     return result
 
 
@@ -149,6 +160,14 @@ def print_significance(sig, title):
     if sig is None:
         print("  insufficient data (need >=2 common seeds across all methods being compared)")
         return
+    if sig.get("incomplete_baselines"):
+        print(f"  NOTE: still missing results for {sig['incomplete_baselines']} -- "
+              f"verdicts below use the full pre-registered Bonferroni family size "
+              f"({sig['bonferroni_threshold']:.5f}) but only reflect the baselines present so far.")
+    if sig.get("incomplete_ablations"):
+        print(f"  NOTE: still missing results for {sig['incomplete_ablations']} -- "
+              f"verdicts below use the full pre-registered Bonferroni family size "
+              f"({sig['bonferroni_threshold']:.5f}) but only reflect the variants present so far.")
     print(f"  rafa mean={sig['rafa_mean']:.4f}+/-{sig['rafa_ci95']:.4f}  "
           f"n_seeds={sig['n_common_seeds']}  bonferroni_threshold={sig['bonferroni_threshold']:.5f}")
     for name, c in sig["comparisons"].items():
