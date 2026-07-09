@@ -17,9 +17,11 @@ dist/
 # Dataset (download separately; see README "Dataset" section)
 data/UCI HAR Dataset/
 
-# Experiment outputs (regenerate via experiments/run_all.py)
-results/
-results_*/
+# Throwaway/smoke-test experiment outputs (regenerate via experiments/run_all.py).
+# results/ itself is NOT ignored -- it holds the final validated grid, tracked
+# for reproducibility.
+results_test*/
+results_debug*/
 
 # Per-run agent/SCAFFOLD state (auto-cleaned after each run; ignore defensively)
 .state/
@@ -29,6 +31,7 @@ results_*/
 Thumbs.db
 .vscode/
 .idea/
+.claude/
 
 # Jupyter / pytest
 .ipynb_checkpoints/

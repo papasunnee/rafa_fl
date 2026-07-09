@@ -36,6 +36,10 @@ ABLATIONS = {
 }
 
 
+def result_tag(method, alpha, num_clients, seed, drift, ablation=None):
+    return f"{ablation or method}_a{alpha}_n{num_clients}_s{seed}_d{int(drift)}"
+
+
 def set_all_seeds(seed):
     torch.manual_seed(seed)
     np.random.seed(seed)
@@ -85,6 +89,19 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
     if ray.is_initialized():
         ray.shutdown()
 
+    # Flower's default ray_init_args omit `address`, so ray.init() auto-detects
+    # and attaches to any already-running local Ray cluster instead of starting
+    # its own -- fatal when multiple run_all.py --only_n shards run concurrently
+    # as separate OS processes (confirmed: "Failed to register worker to
+    # Raylet"). address="local" forces a fresh cluster per process, and a
+    # PID-scoped _temp_dir keeps their on-disk state from colliding too.
+    ray_init_args = {
+        "ignore_reinit_error": True,
+        "include_dashboard": False,
+        "address": "local",
+        "_temp_dir": os.path.join(os.environ.get("TEMP", "C:\\ray_tmp"), f"ray_{os.getpid()}"),
+    }
+
     X_train, y_train, X_test, y_test = load_har(EXPERIMENT.dataset_root)
     part_rng = np.random.RandomState(seed)
     client_idx = dirichlet_partition(y_train, num_clients, MODEL.num_classes,
@@ -95,7 +112,7 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
     param_count = num_parameters(HAR_MLP(MODEL))
     param_shapes = [p.shape for p in get_parameters(HAR_MLP(MODEL))]
 
-    tag = f"{ablation or method}_a{alpha}_n{num_clients}_s{seed}_d{int(drift)}"
+    tag = result_tag(method, alpha, num_clients, seed, drift, ablation)
     # Per-client state (reactive agent sigma/previous_loss, SCAFFOLD control
     # variates) round-trips through disk since Flower's simulation engine
     # reconstructs the client object -- possibly in a different worker
@@ -160,9 +177,12 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
             config=fl.server.ServerConfig(num_rounds=EXPERIMENT.num_rounds),
             strategy=strategy,
             client_resources={"num_cpus": 1},
+            ray_init_args=ray_init_args,
         )
     finally:
         shutil.rmtree(state_dir, ignore_errors=True)
+        if ray.is_initialized():
+            ray.shutdown()
 
     result = {
         "method": ablation or method,

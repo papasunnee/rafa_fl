@@ -1,0 +1,815 @@
+{
+  "method": "rafa_fl",
+  "alpha": 0.1,
+  "num_clients": 50,
+  "seed": 789,
+  "drift": false,
+  "param_count": 80582,
+  "accuracy_curve": [
+    0.3450967085171361,
+    0.3742789277231082,
+    0.4021038344078724,
+    0.44112656939260264,
+    0.37869019341703425,
+    0.6392941974889719,
+    0.5368171021377672,
+    0.4740413980318968,
+    0.5802511028164234,
+    0.6012894468951476,
+    0.5398710553104853,
+    0.6766202918221921,
+    0.7818120122158126,
+    0.7482185273159145,
+    0.7482185273159145,
+    0.7597556837461825,
+    0.7170003393281303,
+    0.7974211062097047,
+    0.7621309806582965,
+    0.7970817780794028,
+    0.7495758398371225,
+    0.7662029182219205,
+    0.7953851374278927,
+    0.7818120122158126,
+    0.8751272480488632,
+    0.8693586698337292,
+    0.8262639972853749,
+    0.829317950458093,
+    0.8819138106549033,
+    0.8286392941974889,
+    0.8788598574821853,
+    0.8109942314217848,
+    0.831014591109603,
+    0.8866644044791313,
+    0.8388191381065491,
+    0.8157448252460129,
+    0.9107567017305734,
+    0.8018323719036308,
+    0.9019341703427214,
+    0.8968442483881914,
+    0.823210044112657,
+    0.839837122497455,
+    0.8791991856124872,
+    0.8768238887003733,
+    0.8870037326094333,
+    0.9114353579911775,
+    0.8968442483881914,
+    0.8934509670851714,
+    0.8537495758398371,
+    0.7461825585341024,
+    0.7577197149643705,
+    0.7695961995249406,
+    0.8171021377672208,
+    0.7723108245673567,
+    0.7950458092975907,
+    0.7648456057007126,
+    0.7645062775704106,
+    0.8693586698337292,
+    0.9100780454699695,
+    0.8937902952154734,
+    0.8907363420427553,
+    0.9178825924669155,
+    0.9189005768578216,
+    0.9083814048184594,
+    0.8846284356973193,
+    0.9175432643366135,
+    0.9141499830335935,
+    0.9175432643366135,
+    0.8798778418730913,
+    0.7502544960977265,
+    0.8873430607397353,
+    0.8958262639972854,
+    0.8666440447913132,
+    0.836443841194435,
+    0.8934509670851714,
+    0.9250084832032576,
+    0.9236511706820495,
+    0.9345096708517137,
+    0.9362063115032236,
+    0.9107567017305734,
+    0.8724126230064473,
+    0.8805564981336953,
+    0.9202578893790295,
+    0.9260264675941635,
+    0.8629114353579912,
+    0.9189005768578216,
+    0.9290804207668816,
+    0.9392602646759416,
+    0.8819138106549033,
+    0.9317950458092976,
+    0.9080420766881574,
+    0.8971835765184933,
+    0.8812351543942993,
+    0.8625721072276892,
+    0.9151679674244995,
+    0.9097387173396675,
+    0.9100780454699695,
+    0.9107567017305734,
+    0.8944689514760774,
+    0.9138106549032915
+  ],
+  "macro_f1_curve": [
+    0.18488358851901832,
+    0.23941548772936042,
+    0.3159718057898205,
+    0.3063080640337879,
+    0.22905391834597635,
+    0.5299419179594448,
+    0.4392143696925166,
+    0.3404916393984352,
+    0.49937133194099115,
+    0.5590835004284985,
+    0.4669916583004492,
+    0.600964887199918,
+    0.7224676258374901,
+    0.6858663865714222,
+    0.7006488636285363,
+    0.7009852184113009,
+    0.6491564895389245,
+    0.7574671984720283,
+    0.7053815947887476,
+    0.7439766745281786,
+    0.6998356338740498,
+    0.7135451096503541,
+    0.7496327387809095,
+    0.7250884697053056,
+    0.8670051198351088,
+    0.8632549504775016,
+    0.8076044529258567,
+    0.8061483184415468,
+    0.8797760499766246,
+    0.8164533774914514,
+    0.8747206356872855,
+    0.7833255139797451,
+    0.8094570518679572,
+    0.8833485290849986,
+    0.8197227711794982,
+    0.7895923804963507,
+    0.9069446630041299,
+    0.7750485622249793,
+    0.8993210087197224,
+    0.8958507614315047,
+    0.8003755731264105,
+    0.8259465850862675,
+    0.874418339281922,
+    0.871199176697704,
+    0.8822138412941817,
+    0.9070602806841365,
+    0.8921396016440779,
+    0.8905137765230379,
+    0.8422616889701401,
+    0.7229119679649013,
+    0.6965455831516087,
+    0.7100956175687912,
+    0.7895490472538823,
+    0.7320176545943049,
+    0.7666162443590103,
+    0.7175430471257557,
+    0.713205636995453,
+    0.8635906516052326,
+    0.9054240834469907,
+    0.8903820186854999,
+    0.8874391986137886,
+    0.9182491481968693,
+    0.9183306111517499,
+    0.9075159827324061,
+    0.8809235113620586,
+    0.9171360598428162,
+    0.9132106944474381,
+    0.917391539188447,
+    0.877594038743618,
+    0.6945779428422947,
+    0.8851335018746519,
+    0.8920249446485286,
+    0.8589993275836338,
+    0.8250727375120267,
+    0.8923560775338272,
+    0.9246087355007239,
+    0.9231784891412179,
+    0.9343133657232304,
+    0.9364025028146189,
+    0.9099098301290992,
+    0.8681539833272311,
+    0.8743607001043451,
+    0.9198686342095846,
+    0.9249354681107981,
+    0.853208288004789,
+    0.9183772925238863,
+    0.9286854404520096,
+    0.9393463499619225,
+    0.8773118416259349,
+    0.931389742342294,
+    0.9060035759920559,
+    0.8950738683764504,
+    0.877123161546261,
+    0.857177904036723,
+    0.9143353372067881,
+    0.9091622320031055,
+    0.9096508390694416,
+    0.9103531466790504,
+    0.8924328365203879,
+    0.9133564840049009
+  ],
+  "round_log": [
+    {
+      "round": 1,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 5
+    },
+    {
+      "round": 2,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 10
+    },
+    {
+      "round": 3,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 14
+    },
+    {
+      "round": 4,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 17
+    },
+    {
+      "round": 5,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 21
+    },
+    {
+      "round": 6,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 26
+    },
+    {
+      "round": 7,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 31
+    },
+    {
+      "round": 8,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 35
+    },
+    {
+      "round": 9,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 39
+    },
+    {
+      "round": 10,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 44
+    },
+    {
+      "round": 11,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 49
+    },
+    {
+      "round": 12,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 54
+    },
+    {
+      "round": 13,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 58
+    },
+    {
+      "round": 14,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 61
+    },
+    {
+      "round": 15,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 66
+    },
+    {
+      "round": 16,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 70
+    },
+    {
+      "round": 17,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 75
+    },
+    {
+      "round": 18,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 80
+    },
+    {
+      "round": 19,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 85
+    },
+    {
+      "round": 20,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 90
+    },
+    {
+      "round": 21,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 95
+    },
+    {
+      "round": 22,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 100
+    },
+    {
+      "round": 23,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 105
+    },
+    {
+      "round": 24,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 110
+    },
+    {
+      "round": 25,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 115
+    },
+    {
+      "round": 26,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 119
+    },
+    {
+      "round": 27,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 122
+    },
+    {
+      "round": 28,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 125
+    },
+    {
+      "round": 29,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 129
+    },
+    {
+      "round": 30,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 133
+    },
+    {
+      "round": 31,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 138
+    },
+    {
+      "round": 32,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 143
+    },
+    {
+      "round": 33,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 147
+    },
+    {
+      "round": 34,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 151
+    },
+    {
+      "round": 35,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 156
+    },
+    {
+      "round": 36,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 161
+    },
+    {
+      "round": 37,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 166
+    },
+    {
+      "round": 38,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 171
+    },
+    {
+      "round": 39,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 175
+    },
+    {
+      "round": 40,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 179
+    },
+    {
+      "round": 41,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 184
+    },
+    {
+      "round": 42,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 187
+    },
+    {
+      "round": 43,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 192
+    },
+    {
+      "round": 44,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 197
+    },
+    {
+      "round": 45,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 202
+    },
+    {
+      "round": 46,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 207
+    },
+    {
+      "round": 47,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 212
+    },
+    {
+      "round": 48,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 217
+    },
+    {
+      "round": 49,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 221
+    },
+    {
+      "round": 50,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 225
+    },
+    {
+      "round": 51,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 229
+    },
+    {
+      "round": 52,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 234
+    },
+    {
+      "round": 53,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 238
+    },
+    {
+      "round": 54,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 243
+    },
+    {
+      "round": 55,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 248
+    },
+    {
+      "round": 56,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 253
+    },
+    {
+      "round": 57,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 258
+    },
+    {
+      "round": 58,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 263
+    },
+    {
+      "round": 59,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 268
+    },
+    {
+      "round": 60,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 272
+    },
+    {
+      "round": 61,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 277
+    },
+    {
+      "round": 62,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 282
+    },
+    {
+      "round": 63,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 286
+    },
+    {
+      "round": 64,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 291
+    },
+    {
+      "round": 65,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 296
+    },
+    {
+      "round": 66,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 300
+    },
+    {
+      "round": 67,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 305
+    },
+    {
+      "round": 68,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 309
+    },
+    {
+      "round": 69,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 312
+    },
+    {
+      "round": 70,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 317
+    },
+    {
+      "round": 71,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 322
+    },
+    {
+      "round": 72,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 327
+    },
+    {
+      "round": 73,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 332
+    },
+    {
+      "round": 74,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 336
+    },
+    {
+      "round": 75,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 340
+    },
+    {
+      "round": 76,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 345
+    },
+    {
+      "round": 77,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 350
+    },
+    {
+      "round": 78,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 354
+    },
+    {
+      "round": 79,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 359
+    },
+    {
+      "round": 80,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 364
+    },
+    {
+      "round": 81,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 368
+    },
+    {
+      "round": 82,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 373
+    },
+    {
+      "round": 83,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 377
+    },
+    {
+      "round": 84,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 382
+    },
+    {
+      "round": 85,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 387
+    },
+    {
+      "round": 86,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 392
+    },
+    {
+      "round": 87,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 397
+    },
+    {
+      "round": 88,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 402
+    },
+    {
+      "round": 89,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 407
+    },
+    {
+      "round": 90,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 410
+    },
+    {
+      "round": 91,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 415
+    },
+    {
+      "round": 92,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 420
+    },
+    {
+      "round": 93,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 425
+    },
+    {
+      "round": 94,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 430
+    },
+    {
+      "round": 95,
+      "active": 4,
+      "deferred": 0,
+      "cumulative_transmissions": 434
+    },
+    {
+      "round": 96,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 439
+    },
+    {
+      "round": 97,
+      "active": 4,
+      "deferred": 1,
+      "cumulative_transmissions": 443
+    },
+    {
+      "round": 98,
+      "active": 3,
+      "deferred": 1,
+      "cumulative_transmissions": 446
+    },
+    {
+      "round": 99,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 451
+    },
+    {
+      "round": 100,
+      "active": 5,
+      "deferred": 0,
+      "cumulative_transmissions": 456
+    }
+  ],
+  "total_transmissions": 456
+}
