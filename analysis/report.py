@@ -137,6 +137,47 @@ def ablation_table(runs, metric="peak_accuracy"):
     return result
 
 
+def full_grid_significance(runs, metric="peak_accuracy"):
+    """
+    significance_table() at every (alpha, num_clients, drift) condition in the
+    grid, not just the primary one -- shows whether an advantage is universal
+    or condition-specific. "Better" assumes higher is better for the metric;
+    flip the sign for metrics where lower is better (e.g. total_transmissions).
+    """
+    rows = []
+    for alpha in EXPERIMENT.alpha_grid:
+        for n in EXPERIMENT.num_clients_grid:
+            for drift in [False, True]:
+                sig = significance_table(runs, alpha, n, drift, metric)
+                rows.append({"alpha": alpha, "num_clients": n, "drift": drift, "sig": sig})
+    return rows
+
+
+def print_full_grid_significance(rows, metric, lower_is_better=False):
+    print(f"\nSignificance across the full grid, metric={metric} "
+          f"({'lower' if lower_is_better else 'higher'} is better for RAFA-FL)")
+    header = f"{'alpha':6s} {'N':5s} {'drift':6s} {'rafa mean':16s} {'sig.better':12s} {'sig.worse':12s} {'n.s.':6s}"
+    print(header)
+    print("-" * len(header))
+    for r in rows:
+        sig = r["sig"]
+        if sig is None:
+            print(f"{r['alpha']:<6} {r['num_clients']:<5} {str(r['drift']):6s} "
+                  f"{'insufficient data':16s}")
+            continue
+        better, worse, ns = [], [], []
+        for name, c in sig["comparisons"].items():
+            if not c["significant"]:
+                ns.append(name)
+            elif (c["cohens_d"] > 0) != lower_is_better:
+                better.append(name)
+            else:
+                worse.append(name)
+        print(f"{r['alpha']:<6} {r['num_clients']:<5} {str(r['drift']):6s} "
+              f"{sig['rafa_mean']:<16.4f} {len(better):<12} {len(worse):<12} {len(ns):<6}"
+              f"  better={better} worse={worse}")
+
+
 def fmt(pair, decimals=4):
     mean, ci = pair
     if mean is None:
@@ -184,6 +225,10 @@ def main():
                              "rounds_to_convergence", "total_transmissions",
                              "bytes_communicated", "convergence_speed"])
     ap.add_argument("--out_json", default=None, help="optional path to dump the grid table as JSON")
+    ap.add_argument("--full_grid", action="store_true",
+                    help="test RAFA-FL vs baselines at every (alpha, N, drift) condition, not just the primary one")
+    ap.add_argument("--lower_is_better", action="store_true",
+                    help="pass when --metric is one where lower is better for RAFA-FL (e.g. total_transmissions)")
     args = ap.parse_args()
 
     runs = load_results(args.results_dir)
@@ -194,6 +239,15 @@ def main():
 
     rows = grid_table(runs)
     print_grid_table(rows)
+
+    if args.full_grid:
+        print_full_grid_significance(full_grid_significance(runs, args.metric),
+                                     args.metric, args.lower_is_better)
+        if args.out_json:
+            with open(args.out_json, "w") as f:
+                json.dump(rows, f, indent=2)
+            print(f"\nWrote {args.out_json}")
+        return
 
     print_significance(
         significance_table(runs, EXPERIMENT.primary_alpha, EXPERIMENT.primary_n, True, args.metric),
