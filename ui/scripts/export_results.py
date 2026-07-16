@@ -29,18 +29,23 @@ def export(results_dir, out_path):
     # experiments/run_experiment.py's result dict) -- no per-client data
     # exists in these logs, so none is synthesised here.
     run_records = [{
-        "method": r["method"],
-        "alpha": r["alpha"],
-        "num_clients": r["num_clients"],
-        "seed": r["seed"],
-        "drift": r["drift"],
-        "param_count": r["param_count"],
-        "accuracy_curve": r["accuracy_curve"],
-        "macro_f1_curve": r["macro_f1_curve"],
-        "round_log": r["round_log"],
-        "total_transmissions": r["total_transmissions"],
+        "method": r["method"],                        # "rafa_fl" | baseline | ablation variant name
+        "alpha": r["alpha"],                           # Dirichlet non-IID heterogeneity (lower = more skewed)
+        "num_clients": r["num_clients"],               # simulated client population size (N)
+        "seed": r["seed"],                             # random seed for this run
+        "drift": r["drift"],                           # whether concept drift was injected mid-run
+        "param_count": r["param_count"],               # model parameter count (for bytes_communicated math)
+        "accuracy_curve": r["accuracy_curve"],         # global test accuracy after each round
+        "macro_f1_curve": r["macro_f1_curve"],         # macro-averaged F1 after each round
+        "round_log": r["round_log"],                   # [{round, active, deferred, cumulative_transmissions}]
+        "total_transmissions": r["total_transmissions"],  # total messages sent across the whole run
     } for r in runs]
 
+    # Per-CONDITION summary (one row per method/alpha/num_clients/drift,
+    # aggregated across its seeds): n_seeds, and [mean, 95% CI] pairs for
+    # peak_accuracy, rounds_to_convergence, total_transmissions, and
+    # bytes_communicated. See analysis/report.py's grid_table() -- this is
+    # that function's own output, not a re-derivation of it.
     summary_rows = grid_table(runs)
 
     payload = {

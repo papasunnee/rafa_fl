@@ -25,12 +25,12 @@ _jobs_lock = threading.Lock()
 
 
 class RunRequest(BaseModel):
-    method: str
-    ablation: str | None = None
-    alpha: float
-    num_clients: int
-    seed: int
-    drift: bool = False
+    method: str               # "rafa_fl" | a baseline name (see experiments.run_experiment.METHODS)
+    ablation: str | None = None  # optional RAFA-FL variant name; only meaningful when method="rafa_fl"
+    alpha: float              # Dirichlet non-IID heterogeneity (lower = more skewed client data)
+    num_clients: int          # simulated client population size (N)
+    seed: int                 # random seed for this run
+    drift: bool = False       # inject concept drift partway through the run
 
 
 def _stream_job(job_id, cmd):
@@ -71,6 +71,11 @@ def start_run(req: RunRequest):
 
 @router.get("/run/{job_id}")
 def get_run(job_id: str):
+    """Poll a job's status. `status` is one of:
+    "running" (still going), "done" (exit code 0), "error" (nonzero exit),
+    or "not_found" (unknown job_id, e.g. after a backend restart).
+    `output` accumulates the subprocess's stdout/stderr so far -- safe to
+    poll repeatedly, it's just the current state, not a diff."""
     with _jobs_lock:
         job = _jobs.get(job_id)
     if job is None:

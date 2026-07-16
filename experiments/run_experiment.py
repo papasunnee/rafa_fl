@@ -13,6 +13,8 @@ Usage:
 import os, sys, json, shutil, pickle, argparse
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from dataclasses import replace
+
 import numpy as np
 import torch
 import flwr as fl
@@ -27,12 +29,16 @@ from fl.baselines import build_strategy
 
 METHODS = ["rafa_fl", "fedavg", "fedprox", "scaffold", "fedcs", "oort"]
 
-# Ablation variants map to RAFA-FL with switches toggled
+# Ablation variants map to RAFA-FL with switches toggled. "lam" is not a
+# RAFAFLClient constructor arg -- it's an AgentConfig field, popped out and
+# applied via dataclasses.replace() in build_client_fn() instead of being
+# spread into the client constructor with the other switches.
 ABLATIONS = {
     "rafa_full":        dict(drift_enabled=True,  resource_enabled=True,  adaptive_epochs=True),
     "rafa_no_drift":    dict(drift_enabled=False, resource_enabled=True,  adaptive_epochs=True),
     "rafa_no_resource": dict(drift_enabled=True,  resource_enabled=False, adaptive_epochs=True),
     "rafa_fixed_epochs":dict(drift_enabled=True,  resource_enabled=True,  adaptive_epochs=False),
+    "rafa_equal_weight":dict(drift_enabled=True,  resource_enabled=True,  adaptive_epochs=True, lam=0.5),
 }
 
 
@@ -53,8 +59,15 @@ def set_all_seeds(seed):
 def build_client_fn(method, X_train, y_train, client_idx, X_test, y_test,
                     seed, drift_clients, drift_state, device, state_dir, ablation=None):
     use_agent = (method == "rafa_fl") or (ablation is not None)
-    switches = ABLATIONS.get(ablation, dict(drift_enabled=True, resource_enabled=True,
-                                            adaptive_epochs=True))
+    switches = dict(ABLATIONS.get(ablation, dict(drift_enabled=True, resource_enabled=True,
+                                                 adaptive_epochs=True)))
+    # lam isn't a RAFAFLClient constructor arg -- it lives on AgentConfig, so
+    # it's applied via a per-run replace() instead of being spread in below.
+    # AGENT is a single shared module-level instance imported by every
+    # concurrently-running condition; replace() returns a fresh copy rather
+    # than mutating it in place.
+    lam_override = switches.pop("lam", None)
+    agent_cfg = replace(AGENT, lam=lam_override) if lam_override is not None else AGENT
 
     def client_fn(cid):
         k = int(cid)
@@ -69,7 +82,7 @@ def build_client_fn(method, X_train, y_train, client_idx, X_test, y_test,
         client = RAFAFLClient(
             cid=k, X_tr=Xtr, y_tr=y_tr, X_val=Xval, y_val=y_val,
             X_test=X_test, y_test=y_test,
-            model_cfg=MODEL, agent_cfg=AGENT, rng=rng, device=device,
+            model_cfg=MODEL, agent_cfg=agent_cfg, rng=rng, device=device,
             use_agent=use_agent, method=method,
             drift_clients=drift_clients, drift_active=drift_state,
             state_dir=state_dir, resource_seed=seed + k, **switches,

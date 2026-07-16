@@ -5,6 +5,13 @@ import Runner from './pages/Runner.jsx'
 
 const RUNNER_ENABLED = import.meta.env.VITE_ENABLE_RUNNER === 'true'
 
+// How the three pages relate:
+//   Runner (/runner)      -- triggers a real training run -> writes results/*.json
+//   (offline)                 -> `python ui/scripts/export_results.py` -> results_export.json
+//   Dashboard (/)          -- reads that static export; shows what already happened
+//   Playground (/playground) -- calls the live agent directly; independent of the other two,
+//                                needs neither results data nor a training run
+
 const navLinkClass = ({ isActive }) =>
   `px-3 py-2 rounded-md text-sm font-medium ${
     isActive
@@ -19,10 +26,10 @@ function App() {
         <header className="border-b border-neutral-200 dark:border-neutral-800">
           <nav className="mx-auto flex max-w-5xl items-center gap-2 px-4 py-3">
             <span className="mr-4 font-semibold">RAFA-FL</span>
-            <NavLink to="/" end className={navLinkClass}>Dashboard</NavLink>
-            <NavLink to="/playground" className={navLinkClass}>Agent Playground</NavLink>
+            <NavLink to="/" end className={navLinkClass} title="Past results, read-only">Dashboard</NavLink>
+            <NavLink to="/playground" className={navLinkClass} title="Test the agent's decision rule live, no training needed">Agent Playground</NavLink>
             {RUNNER_ENABLED && (
-              <NavLink to="/runner" className={navLinkClass}>Runner</NavLink>
+              <NavLink to="/runner" className={navLinkClass} title="Launch a real training run (local dev only)">Runner</NavLink>
             )}
           </nav>
         </header>

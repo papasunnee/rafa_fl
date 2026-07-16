@@ -1,16 +1,24 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
+// Default AgentConfig thresholds (config.py's AgentConfig, sent to POST
+// /decide as the `config` field -- see ui/backend/routes/playground.py).
+// theta_delta/theta_d were tuned by experiments/pilot.py; the rest are
+// analytic defaults. What each one gates:
 const DEFAULT_CONFIG = {
-  theta_delta: 0.013148,
-  theta_d: 0.137177,
-  theta_rho: 0.20,
-  s_max: 5,
-  e_min: 1,
-  e_max: 5,
-  e_std: 3,
-  lam: 0.6,
+  theta_delta: 0.013148, // min loss improvement (delta_t) that counts as "still learning" (rule P3)
+  theta_d: 0.137177,     // KL-divergence (drift_t) above which drift is considered detected (rule P2)
+  theta_rho: 0.20,       // resource sample (rho_t) below which a client is considered resource-constrained (rule P4)
+  s_max: 5,              // max consecutive rounds a client may be skipped before it's force-included (rule P1)
+  e_min: 1,              // fewest local training epochs the adaptive epoch function can choose
+  e_max: 5,              // most local training epochs the adaptive epoch function can choose
+  e_std: 3,              // fixed epoch count used by non-agent baselines and the "fixed epochs" ablation
+  lam: 0.6,              // weight on drift vs. quality signal in the adaptive epoch function (0=quality only, 1=drift only)
 }
 
+// The five priority-ordered rules the agent's decide() checks in order --
+// the first one whose condition is met determines the action. See
+// agent/reactive_agent.py.
 const RULES = ['P1_force', 'P2_drift', 'P3_quality', 'P4_defer', 'P5_default']
 const RULE_LABELS = {
   P1_force: 'P1 — bounded participation (forced)',
@@ -89,15 +97,25 @@ export default function Playground() {
         <p className="mt-1 text-sm text-neutral-500">
           Calls the real <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">ReactiveAgent.decide()</code> on
           every change below -- this is not a reimplementation of the priority logic in JavaScript.
+          Unlike the <Link to="/" className="underline">Dashboard</Link> (past results) or the{' '}
+          <Link to="/runner" className="underline">Runner</Link> (real training), this page doesn't need any
+          results data or a training run -- it's just the agent's one-shot decision rule in isolation, for
+          building intuition about when each of the 5 rules below fires.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <section className="space-y-4">
           <h2 className="text-lg font-medium">Observation (per-round signals)</h2>
+          <p className="text-xs text-neutral-400">
+            The three numbers a real client would compute each round and hand to the agent.
+          </p>
           <Slider label="delta_t (loss improvement)" value={deltaT} onChange={setDeltaT} min={-0.2} max={1} step={0.005} />
+          <p className="-mt-3 text-xs text-neutral-400">Drop in local validation loss vs. last round this client participated. Higher = learning faster.</p>
           <Slider label="drift_t (KL divergence)" value={driftT} onChange={setDriftT} min={0} max={1} step={0.005} />
+          <p className="-mt-3 text-xs text-neutral-400">KL divergence between this client's current label distribution and its round-0 reference. Higher = more concept drift.</p>
           <Slider label="rho_t (resource sample)" value={rhoT} onChange={setRhoT} min={0} max={1} step={0.01} />
+          <p className="-mt-3 text-xs text-neutral-400">Simulated resource availability (0 = fully constrained, 1 = fully available).</p>
         </section>
 
         <section className="space-y-4">
@@ -117,6 +135,11 @@ export default function Playground() {
 
       <section>
         <h2 className="mb-2 text-lg font-medium">Decision</h2>
+        <p className="mb-2 text-xs text-neutral-400">
+          participate = whether this client trains this round. epochs = how many local epochs, if it does
+          (0 if deferring). communicate = whether it sends its updated model back to the server. rule = which
+          of the 5 priority rules below decided this, evaluated top to bottom -- the first match wins.
+        </p>
         {error && (
           <div className="rounded-md border border-red-300 bg-red-50 p-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-300">
             Backend error: {error}. Is <code>ui/backend</code> running on :8000?

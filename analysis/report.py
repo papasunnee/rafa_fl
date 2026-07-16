@@ -25,7 +25,7 @@ from analysis.metrics import summarise_run
 from analysis.stats import compare_all, mean_ci
 
 BASELINES = ["fedavg", "fedprox", "scaffold", "fedcs", "oort"]
-ABLATIONS = ["rafa_no_drift", "rafa_no_resource", "rafa_fixed_epochs"]
+ABLATIONS = ["rafa_no_drift", "rafa_no_resource", "rafa_fixed_epochs", "rafa_equal_weight"]
 GRID_METRICS = ["peak_accuracy", "rounds_to_convergence", "total_transmissions", "bytes_communicated"]
 
 

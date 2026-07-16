@@ -1,8 +1,41 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
 import resultsData from '../data/results_export.json'
+
+// resultsData is a static snapshot written by ui/scripts/export_results.py,
+// which just flattens results/*.json (see experiments/run_experiment.py's
+// `result` dict for the source of truth) plus a per-condition summary
+// reusing analysis/report.py's own aggregation. Shape:
+//
+//   n_runs           - total individual experiment runs included below
+//   generated_from   - the results/ directory export_results.py read from
+//
+//   runs[]           - one entry per (method, alpha, num_clients, seed, drift)
+//                      run, keeping its full per-round series:
+//     method               - "rafa_fl", a baseline name, or an ablation variant name
+//     alpha                - Dirichlet non-IID heterogeneity (lower = more skewed
+//                             data across clients)
+//     num_clients          - simulated client population size (N)
+//     seed                 - random seed for this specific run
+//     drift                - whether concept drift was injected partway through
+//     accuracy_curve[]     - global test-set accuracy after each round
+//     macro_f1_curve[]     - macro-averaged F1 after each round
+//     round_log[]          - {round, active, deferred, cumulative_transmissions}
+//                            per round (aggregate counts only -- no per-client
+//                            identity exists in these logs)
+//     total_transmissions  - total messages sent to the server across the run
+//
+//   summary[]        - one entry per (method, alpha, num_clients, drift)
+//                      CONDITION, aggregating across that condition's seeds:
+//     n_seeds                 - how many seeds ran for this condition
+//     peak_accuracy           - [mean, 95% CI] of each seed's best-round accuracy
+//     rounds_to_convergence    - [mean, 95% CI] of rounds until accuracy settles
+//                                near its peak (lower = converges faster)
+//     total_transmissions      - [mean, 95% CI] of total messages sent
+//     bytes_communicated       - [mean, 95% CI] of transmissions x model size
 
 // Fixed per-method colors so charts stay readable/consistent across pages.
 const METHOD_COLORS = {
@@ -83,6 +116,14 @@ export default function Dashboard() {
       <div>
         <h1 className="text-2xl font-semibold">RAFA-FL Results Dashboard</h1>
         <p className="mt-1 text-sm text-neutral-500">
+          Read-only view of completed experiments. Nothing on this page runs live --
+          it just reads a static snapshot of <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">results/</code>.
+          New results (e.g. from the <Link to="/runner" className="underline">Runner</Link> page)
+          won't show up here until you re-run <code className="rounded bg-neutral-100 px-1 dark:bg-neutral-800">
+            python ui/scripts/export_results.py
+          </code>.
+        </p>
+        <p className="mt-1 text-sm text-neutral-500">
           {nRuns} runs loaded from {resultsData.generated_from}
         </p>
       </div>
@@ -153,6 +194,11 @@ export default function Dashboard() {
                 </tbody>
               </table>
             </div>
+            <p className="mt-1 text-xs text-neutral-400">
+              peak accuracy = best single-round test accuracy reached. rounds to convergence = how many
+              rounds it took to reach and hold ~95% of that peak (lower is faster). transmissions = total
+              messages sent to the server across the whole run (lower is cheaper to communicate).
+            </p>
           </section>
 
           <section>

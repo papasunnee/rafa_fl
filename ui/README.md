@@ -47,9 +47,24 @@ npm run build      # production build
 ```
 
 Pages:
-- **Dashboard** — reads `src/data/results_export.json` directly, no backend needed.
-- **Agent Playground** — sliders/inputs feeding the live `/decide` endpoint.
-- **Runner** — form that launches a real `experiments.run_experiment` subprocess.
+- **Dashboard** (`/`) — reads `src/data/results_export.json` directly, no backend needed.
+  Shows per-condition summary stats and real per-round accuracy/transmission curves for
+  whatever's already in that exported file.
+- **Agent Playground** (`/playground`) — sliders/inputs feeding the live `/decide` endpoint.
+  Doesn't need `results/` or a training run at all; it's the agent's one-shot decision rule
+  in isolation, for building intuition about the 5 priority rules (P1-P5).
+- **Runner** (`/runner`) — form that launches a real `experiments.run_experiment` subprocess.
+  Local dev only, see gating below.
+
+### How the three pages relate
+
+```
+Runner  --(new results/*.json)-->  export_results.py  --(results_export.json)-->  Dashboard
+Playground -- independent, talks straight to the agent, doesn't touch results/ at all
+```
+
+The Dashboard is a *snapshot*, not live: results from a Runner run won't show up
+there until you manually re-run step 1 (`export_results.py`) to refresh the export.
 
 ### Runner gating
 
