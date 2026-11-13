@@ -47,7 +47,11 @@ class ModelConfig:
     num_classes: int = 6
     dropout: float = 0.3
     lr: float = 0.01
-    momentum: float = 0.9
+    # Plain local SGD for every method. Momentum 0.9 made local training
+    # diverge on small, highly skewed clients (alpha=0.1) and had to be
+    # disabled for SCAFFOLD anyway (its correction is derived for plain SGD),
+    # which left SCAFFOLD on a different optimiser from every other method.
+    momentum: float = 0.0
     batch_size: int = 32
 
 

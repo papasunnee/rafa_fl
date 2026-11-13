@@ -36,8 +36,8 @@ BASELINES = ["fedavg", "fedprox", "scaffold", "fedcs", "oort"]
 ALL_METHODS = ["rafa_fl"] + BASELINES
 THETA_RHO_GRID = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50]  # sweep around the config default (0.20)
 MAX_ATTEMPTS = 3      # retries before giving up on a job
-JOB_TIMEOUT_SECONDS = 600   # generously above the slowest legitimate job observed (~5 min);
-                            # a hang gets force-killed well before this would matter for real work
+JOB_TIMEOUT_SECONDS = 1800  # jobs take ~7.5 min with three shards sharing the CPU; 600 s
+                            # was too close. A real hang is still killed after 30 min.
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 

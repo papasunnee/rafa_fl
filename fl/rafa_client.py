@@ -124,14 +124,14 @@ class RAFAFLClient(fl.client.NumPyClient):
               scaffold_control=None, scaffold_local=None):
         self.model.train()
         crit = nn.CrossEntropyLoss(weight=class_weights)
-        # SCAFFOLD's control-variate correction (Option II) is derived for plain
-        # SGD. A constant per-step correction term compounds through a momentum
-        # buffer's exponential moving average (roughly 1/(1-momentum) = 10x at
-        # momentum=0.9), which blows up the weights within a few dozen rounds --
-        # confirmed empirically (accuracy collapsed to chance level ~round 20).
-        # Momentum is disabled specifically for the SCAFFOLD-corrected path.
-        momentum = 0.0 if scaffold_control is not None else self.model_cfg.momentum
-        opt = torch.optim.SGD(self.model.parameters(), lr=self.model_cfg.lr, momentum=momentum)
+        # Same optimiser for every method (ModelConfig.momentum, plain SGD by
+        # default). SCAFFOLD's control-variate correction (Option II) is
+        # derived for plain SGD: with momentum the constant per-step correction
+        # compounds ~1/(1-momentum)-fold and blew up the weights. An earlier
+        # version disabled momentum for SCAFFOLD only, which confounded the
+        # method comparison; it is now disabled for all methods in config.py.
+        opt = torch.optim.SGD(self.model.parameters(), lr=self.model_cfg.lr,
+                              momentum=self.model_cfg.momentum)
         # Per-sample (unweighted) losses from the final epoch, for OORT's
         # statistical utility sqrt(sum_j loss_j^2 / |B|) (Section 4.7.5).
         sample_crit = nn.CrossEntropyLoss(reduction="none")
