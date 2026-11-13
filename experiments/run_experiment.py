@@ -42,8 +42,55 @@ ABLATIONS = {
 }
 
 
-def result_tag(method, alpha, num_clients, seed, drift, ablation=None):
-    return f"{ablation or method}_a{alpha}_n{num_clients}_s{seed}_d{int(drift)}"
+def result_tag(method, alpha, num_clients, seed, drift, ablation=None, theta_rho=None):
+    tag = f"{ablation or method}_a{alpha}_n{num_clients}_s{seed}_d{int(drift)}"
+    if theta_rho is not None:
+        tag += f"_rho{theta_rho}"
+    return tag
+
+
+def _pkg_version(name):
+    from importlib.metadata import version, PackageNotFoundError
+    try:
+        return version(name)
+    except PackageNotFoundError:
+        return None
+
+
+def provenance(X_train, y_train, theta_rho=None, ablation=None):
+    """
+    Everything needed to tell whether two result files are comparable:
+    source revision (and whether the tree was dirty), dependency versions,
+    a fingerprint of the training data, and the full effective configuration.
+    """
+    import hashlib, platform, subprocess
+    from config import full_config_dict
+    repo = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    def _git(*args):
+        try:
+            return subprocess.run(["git", *args], cwd=repo, capture_output=True,
+                                  text=True, timeout=10).stdout.strip()
+        except (OSError, subprocess.SubprocessError):
+            return None
+
+    h = hashlib.sha256()
+    h.update(np.ascontiguousarray(X_train).tobytes())
+    h.update(np.ascontiguousarray(y_train).tobytes())
+    cfg = full_config_dict()
+    overrides = dict(ABLATIONS.get(ablation, {}))
+    if theta_rho is not None:
+        overrides["theta_rho"] = theta_rho
+    return {
+        "git_commit": _git("rev-parse", "HEAD"),
+        "git_dirty": bool(_git("status", "--porcelain", "--untracked-files=no")),
+        "python": platform.python_version(),
+        "versions": {"torch": torch.__version__, "flwr": _pkg_version("flwr"),
+                     "numpy": np.__version__, "ray": _pkg_version("ray")},
+        "dataset_sha256": h.hexdigest(),
+        "config": cfg,
+        "overrides": overrides,
+    }
 
 
 def set_all_seeds(seed):
@@ -57,17 +104,23 @@ def set_all_seeds(seed):
 
 
 def build_client_fn(method, X_train, y_train, client_idx, X_test, y_test,
-                    seed, drift_clients, drift_state, device, state_dir, ablation=None):
+                    seed, drift_clients, drift_state, device, state_dir, ablation=None,
+                    theta_rho=None, observe_only=False):
     use_agent = (method == "rafa_fl") or (ablation is not None)
     switches = dict(ABLATIONS.get(ablation, dict(drift_enabled=True, resource_enabled=True,
                                                  adaptive_epochs=True)))
-    # lam isn't a RAFAFLClient constructor arg -- it lives on AgentConfig, so
-    # it's applied via a per-run replace() instead of being spread in below.
-    # AGENT is a single shared module-level instance imported by every
-    # concurrently-running condition; replace() returns a fresh copy rather
-    # than mutating it in place.
+    # lam and theta_rho aren't RAFAFLClient constructor args -- they live on
+    # AgentConfig, so they're applied via a per-run replace() instead of being
+    # spread in below. AGENT is a single shared module-level instance imported
+    # by every concurrently-running condition; replace() returns a fresh copy
+    # rather than mutating it in place.
     lam_override = switches.pop("lam", None)
-    agent_cfg = replace(AGENT, lam=lam_override) if lam_override is not None else AGENT
+    agent_overrides = {}
+    if lam_override is not None:
+        agent_overrides["lam"] = lam_override
+    if theta_rho is not None:
+        agent_overrides["theta_rho"] = theta_rho
+    agent_cfg = replace(AGENT, **agent_overrides) if agent_overrides else AGENT
 
     def client_fn(cid):
         k = int(cid)
@@ -85,7 +138,7 @@ def build_client_fn(method, X_train, y_train, client_idx, X_test, y_test,
             model_cfg=MODEL, agent_cfg=agent_cfg, rng=rng, device=device,
             use_agent=use_agent, method=method,
             drift_clients=drift_clients, drift_active=drift_state,
-            state_dir=state_dir, resource_seed=seed + k, **switches,
+            state_dir=state_dir, resource_seed=seed + k, exp_seed=seed, observe_only=observe_only, **switches,
         )
         # attach epoch default for non-agent baselines
         client.model_cfg.e_std = AGENT.e_std
@@ -94,7 +147,9 @@ def build_client_fn(method, X_train, y_train, client_idx, X_test, y_test,
     return client_fn
 
 
-def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
+def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None, theta_rho=None,
+        observe_only=False, num_rounds=None, tag_suffix=""):
+    num_rounds = num_rounds or EXPERIMENT.num_rounds
     set_all_seeds(seed)
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -124,8 +179,12 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
 
     param_count = num_parameters(HAR_MLP(MODEL))
     param_shapes = [p.shape for p in get_parameters(HAR_MLP(MODEL))]
+    # Explicit, seed-determined initial global model (same for every method
+    # at a given seed).
+    torch.manual_seed(seed)
+    init_params = fl.common.ndarrays_to_parameters(get_parameters(HAR_MLP(MODEL)))
 
-    tag = result_tag(method, alpha, num_clients, seed, drift, ablation)
+    tag = result_tag(method, alpha, num_clients, seed, drift, ablation, theta_rho) + tag_suffix
     # Per-client state (reactive agent sigma/previous_loss, SCAFFOLD control
     # variates) round-trips through disk since Flower's simulation engine
     # reconstructs the client object -- possibly in a different worker
@@ -168,6 +227,7 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
         evaluate_fn=centralised_evaluate_fn,
         param_shapes=param_shapes if strategy_name == "scaffold" else None,
         selection_seed=seed, oort_exploration_floor=EXPERIMENT.oort_exploration_floor,
+        initial_parameters=init_params,
     )
 
     def on_fit_config(server_round):
@@ -181,13 +241,14 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
     client_fn = build_client_fn(method, X_train, y_train, client_idx,
                                 X_test, y_test, seed, drift_clients,
                                 drift_state=drift, device=device,
-                                state_dir=state_dir, ablation=ablation)
+                                state_dir=state_dir, ablation=ablation,
+                                theta_rho=theta_rho, observe_only=observe_only)
 
     try:
         fl.simulation.start_simulation(
             client_fn=client_fn,
             num_clients=num_clients,
-            config=fl.server.ServerConfig(num_rounds=EXPERIMENT.num_rounds),
+            config=fl.server.ServerConfig(num_rounds=num_rounds),
             strategy=strategy,
             client_resources={"num_cpus": 1},
             ray_init_args=ray_init_args,
@@ -200,12 +261,26 @@ def run(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
     result = {
         "method": ablation or method,
         "alpha": alpha, "num_clients": num_clients, "seed": seed, "drift": drift,
+        "theta_rho": theta_rho if theta_rho is not None else AGENT.theta_rho,
         "param_count": param_count,
+        "num_rounds": num_rounds, "observe_only": observe_only,
         "accuracy_curve": history["accuracy"],
         "macro_f1_curve": history["macro_f1"],
         "round_log": getattr(strategy, "round_log", []),
         "total_transmissions": getattr(strategy, "total_transmissions", None),
     }
+    # Validity: a run is invalid if any round lost a selected client to a
+    # failure, or if the accuracy curve is short. Invalid runs are still
+    # written (for diagnosis) but analysis/report.py excludes them.
+    incomplete = list(getattr(strategy, "incomplete_rounds", []))
+    result["incomplete_rounds"] = incomplete
+    result["failure_messages"] = list(getattr(strategy, "failure_messages", []))
+    result["valid"] = (not incomplete) and len(history["accuracy"]) == num_rounds
+    result["provenance"] = provenance(X_train, y_train, theta_rho=theta_rho,
+                                      ablation=ablation)
+    if not result["valid"]:
+        print(f"WARNING: run {tag} is INVALID: {len(incomplete)} incomplete rounds "
+              f"{incomplete[:10]}; accuracy points={len(history['accuracy'])}")
 
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, f"{tag}.json")
@@ -224,9 +299,11 @@ def main():
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--drift", action="store_true")
     ap.add_argument("--out", default="results/")
+    ap.add_argument("--theta_rho", type=float, default=None,
+                    help="override AgentConfig.theta_rho for a sensitivity-analysis run")
     args = ap.parse_args()
     run(args.method, args.alpha, args.num_clients, args.seed, args.drift,
-        args.out, args.ablation)
+        args.out, args.ablation, args.theta_rho)
 
 
 if __name__ == "__main__":

@@ -40,7 +40,17 @@ class ReactiveAgent:
 
         # Persistent state
         self.sigma = 0
-        self.previous_loss = 1.0            # round-0 sentinel -> delta_0 > theta_delta
+        # Loss-improvement bookkeeping (Algorithm 1, lines 24-25). Both values
+        # are POST-training local validation losses:
+        #   previous_loss = L at the end of this client's last communicating round
+        #   last_delta    = L(prev communicating round) - L(this one)
+        # None means "not yet observed": the client has never trained (first
+        # selection, handled by rule P0) or has trained only once (no delta yet).
+        # This replaces the old previous_loss=1.0 sentinel, which did not
+        # guarantee first-round communication -- initial weighted cross-entropy
+        # over 6 classes is ~ln 6 = 1.79 > 1.0, giving a negative delta_0.
+        self.previous_loss = None
+        self.last_delta = None
         self.drift = DriftEstimator(num_classes, epsilon=self.cfg.kl_epsilon)
         self.state = STATE_ACTIVE
 
@@ -70,8 +80,16 @@ class ReactiveAgent:
 
     # ---- Stages 2-3: Evaluate guards + select joint action ---------------
     def decide(self, delta_t, drift_t, rho_t):
-        """Return the joint action triple from the priority-ordered policy."""
-        e_fn = self.epoch_function(delta_t, drift_t)
+        """
+        Return the joint action triple from the priority-ordered policy.
+
+        delta_t=None means no loss improvement has been observed yet (the
+        client has trained fewer than two times). Such a client always
+        communicates: rule P0_first fires after P1/P2 and before P3-P5, with
+        E_std epochs.
+        """
+        first = delta_t is None
+        e_fn = self.epoch_function(0.0 if first else delta_t, drift_t)
 
         # P1 — bounded participation guarantee
         if self.sigma >= self.cfg.s_max:
@@ -84,6 +102,12 @@ class ReactiveAgent:
             self.sigma = 0
             self.state = STATE_ACTIVE
             return Action(1, e_fn, 1, "P2_drift")
+
+        # P0 — no delta observed yet: participate so that one can be measured
+        if first:
+            self.sigma = 0
+            self.state = STATE_ACTIVE
+            return Action(1, self.cfg.e_std, 1, "P0_first")
 
         # P3 — quality-triggered
         if delta_t >= self.cfg.theta_delta:
@@ -103,9 +127,17 @@ class ReactiveAgent:
         return Action(1, self.cfg.e_std, 1, "P5_default")
 
     # ---- Stage 4 (loss bookkeeping) --------------------------------------
-    def update_loss(self, new_val_loss):
-        """Update the previous-loss reference after a communicating round."""
-        self.previous_loss = new_val_loss
+    def update_loss(self, post_train_val_loss):
+        """
+        Record the post-training validation loss of a communicating round
+        (Algorithm 1 line 24) and update delta = L(prev) - L(now) (line 25).
+        Never called on deferred rounds, so delta reflects local learning
+        progress between successive participations.
+        """
+        if self.previous_loss is not None:
+            self.last_delta = self.previous_loss - post_train_val_loss
+        self.previous_loss = post_train_val_loss
 
-    def compute_delta(self, current_val_loss):
-        return self.previous_loss - current_val_loss
+    def compute_delta(self):
+        """delta for the current decision: last observed improvement, or None."""
+        return self.last_delta

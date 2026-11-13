@@ -20,7 +20,8 @@ SELECTION_MODES = {"fedcs": "fedcs", "oort": "oort"}
 
 def build_strategy(name, fraction_fit, num_clients, min_active_fraction=0.1,
                    evaluate_metrics_aggregation_fn=None, evaluate_fn=None,
-                   param_shapes=None, selection_seed=0, oort_exploration_floor=0.1):
+                   param_shapes=None, selection_seed=0, oort_exploration_floor=0.1,
+                   initial_parameters=None):
     """
     Return a configured Flower strategy for a baseline, or the RAFA-FL strategy.
     Client-side behaviour (proximal term, control variates) is selected in the
@@ -35,6 +36,9 @@ def build_strategy(name, fraction_fit, num_clients, min_active_fraction=0.1,
         min_available_clients=num_clients,
         evaluate_metrics_aggregation_fn=evaluate_metrics_aggregation_fn,
         evaluate_fn=evaluate_fn,
+        # Explicit initial global model. Without it Flower asks one random
+        # client for its parameters, whose init depends on Ray-worker RNG state.
+        initial_parameters=initial_parameters,
     )
 
     # RAFAFLStrategy filters clients whose fit metrics report "deferred": True;
@@ -71,17 +75,33 @@ def oort_statistical_utility(losses, num_samples):
     return float(num_samples * np.sqrt(np.mean(losses ** 2)))
 
 
+def oort_utility_from_stats(num_samples, mean_sq_loss):
+    """
+    Same U_k as oort_statistical_utility, computed from the client-reported
+    mean of squared per-sample losses (sum_j loss_j^2 / |B_k|), so individual
+    losses never leave the client.
+    """
+    if num_samples <= 0 or mean_sq_loss is None:
+        return 0.0
+    return float(num_samples * np.sqrt(max(float(mean_sq_loss), 0.0)))
+
+
 # ---- FedCS / OORT selection helpers ---------------------------------------
 def select_topk_by_score(scores, k, rng, exploration_floor=0.0):
     """
     Select top-k client indices by score. If exploration_floor > 0 (OORT), each
-    client retains a minimum selection probability to prevent starvation.
+    of the k slots is independently an exploration slot with probability
+    exploration_floor, so the expected exploration fraction is exactly
+    exploration_floor at every k. (The previous deterministic
+    round(floor * k) gave zero exploration slots for k <= 5, i.e. at N=10
+    and N=50.) Exploration slots are filled uniformly from the clients not
+    already chosen by exploitation.
     """
     scores = np.asarray(scores, dtype=np.float64)
     n = len(scores)
     k = min(k, n)
     if exploration_floor > 0:
-        n_explore = int(round(exploration_floor * k))
+        n_explore = int(rng.binomial(k, exploration_floor))
         n_exploit = k - n_explore
         exploit = list(np.argsort(scores)[::-1][:n_exploit])
         remaining = [i for i in range(n) if i not in exploit]

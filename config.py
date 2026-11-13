@@ -8,15 +8,17 @@ the pilot experiment (experiments/pilot.py) and written back into this file.
 """
 
 from dataclasses import dataclass, field, asdict
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
 class AgentConfig:
     # Threshold parameters (theta_delta and theta_d set by pilot; others analytic)
-    theta_delta: float = 0.013148 # loss-improvement threshold (25th pctile of pilot delta)
-    theta_d: float = 0.137177     # drift threshold (90th pctile of pilot no-drift d)
-    theta_rho: float = 0.20       # resource threshold (20th pctile of Beta(2,2))
+    theta_delta: float = 0.011579  # 25th pctile of pilot delta (pilot report sha256 2230b93af6a5)
+    theta_d: float = 0.092666      # 90th pctile of pilot no-drift d (pilot report sha256 2230b93af6a5)
+    # NOTE: P(Beta(2,2) < 0.20) = 0.104, i.e. 0.20 is the ~10th percentile;
+    # the 20th percentile is ~0.287. Value kept as used in the thesis runs.
+    theta_rho: float = 0.20       # resource threshold
     s_max: int = 5                # bounded-participation skip limit
 
     # Continuous epoch function
@@ -24,6 +26,14 @@ class AgentConfig:
     e_max: int = 5
     e_std: int = 3
     lam: float = 0.6              # drift weight in epoch function g(delta, d)
+
+    # Drift observation (Section 3.6.1): d_t = KL(P_hat_t || P_hat_0) where
+    # P_hat_t is the label histogram of a batch of drift_batch labels drawn
+    # (seeded, without replacement) from the client's current training labels.
+    # None = use the whole local label array instead; without drift that is
+    # identical to the reference, so d_t == 0 exactly and the pilot cannot
+    # calibrate theta_d from it.
+    drift_batch: Optional[int] = 32
 
     # Numerical
     kl_epsilon: float = 1e-8      # Laplace smoothing for KL divergence

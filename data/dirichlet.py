@@ -30,10 +30,33 @@ def dirichlet_partition(labels, num_clients, num_classes, alpha, rng,
         for k in range(num_clients):
             client_indices[k].extend(splits[k].tolist())
 
-    # Enforce a minimum allocation by redistributing from the largest clients
-    client_indices = [np.array(ci) for ci in client_indices]
+    # Enforce a minimum allocation by redistributing from the largest clients.
+    # dtype is explicit: np.array([]) defaults to float64, and np.append onto a
+    # float array keeps it float, which later fails as an index array
+    # ("arrays used as indices must be of integer type") -- most likely at
+    # alpha=0.1 where a client can receive no samples at all.
+    client_indices = [np.asarray(ci, dtype=np.int64) for ci in client_indices]
     _enforce_minimum(client_indices, min_samples, rng)
+    validate_partition(client_indices, len(labels), min_samples)
     return client_indices
+
+
+def validate_partition(client_indices, num_samples, min_samples):
+    """
+    Raise ValueError unless the partition is integer-typed, disjoint, covers
+    every sample exactly once, and gives every client >= min_samples.
+    """
+    for k, ci in enumerate(client_indices):
+        if ci.dtype.kind not in "iu":
+            raise ValueError(f"client {k}: index array has dtype {ci.dtype}, expected integer")
+        if len(ci) < min_samples:
+            raise ValueError(f"client {k}: {len(ci)} samples < min_samples={min_samples}")
+    allidx = np.concatenate(client_indices) if client_indices else np.array([], dtype=np.int64)
+    if len(allidx) != num_samples or len(np.unique(allidx)) != num_samples:
+        raise ValueError(f"partition does not cover {num_samples} samples exactly once "
+                         f"(total={len(allidx)}, unique={len(np.unique(allidx))})")
+    if num_samples and (allidx.min() < 0 or allidx.max() >= num_samples):
+        raise ValueError("partition contains out-of-range indices")
 
 
 def _enforce_minimum(client_indices, min_samples, rng):
@@ -45,7 +68,7 @@ def _enforce_minimum(client_indices, min_samples, rng):
                 break
             moved = client_indices[donor][-1]
             client_indices[donor] = client_indices[donor][:-1]
-            client_indices[k] = np.append(client_indices[k], moved)
+            client_indices[k] = np.append(client_indices[k], moved).astype(np.int64)
 
 
 def make_drift_clients(num_clients, drift_fraction, drift_seed):

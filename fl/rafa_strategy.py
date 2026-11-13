@@ -26,7 +26,7 @@ import numpy as np
 import flwr as fl
 from flwr.common import FitIns
 
-from fl.baselines import select_topk_by_score, oort_statistical_utility
+from fl.baselines import select_topk_by_score, oort_utility_from_stats
 
 
 class RAFAFLStrategy(fl.server.strategy.FedAvg):
@@ -48,7 +48,23 @@ class RAFAFLStrategy(fl.server.strategy.FedAvg):
         self.oort_exploration_floor = oort_exploration_floor
         self.client_utility = {}     # oort only: cid -> last statistical utility
 
+        # Failure accounting: which clients were asked to fit each round, so
+        # rounds where a selected client neither trained nor deferred (a
+        # Flower failure: exception, timeout, Ray worker crash) are visible
+        # rather than silently shrinking the round.
+        self._selected = {}          # round -> [cid, ...]
+        self.incomplete_rounds = []  # rounds with failed/missing clients
+        self.failure_messages = []   # first few failure reprs, for diagnosis
+
+    def _record_selection(self, server_round, clients):
+        self._selected[server_round] = [c.cid for c in clients]
+
     def configure_fit(self, server_round, parameters, client_manager):
+        instructions = self._configure_fit(server_round, parameters, client_manager)
+        self._record_selection(server_round, [c for c, _ in instructions])
+        return instructions
+
+    def _configure_fit(self, server_round, parameters, client_manager):
         config = {}
         if self.on_fit_config_fn is not None:
             config = self.on_fit_config_fn(server_round)
@@ -64,7 +80,9 @@ class RAFAFLStrategy(fl.server.strategy.FedAvg):
         # FedCS / OORT: rank every currently-available client, then take the top-k.
         available = client_manager.sample(num_clients=client_manager.num_available(),
                                           min_num_clients=min_num_clients)
-        rng = np.random.RandomState(self.selection_seed + server_round)
+        # SeedSequence: seed+round collides across seeds (42+81 == 123+0).
+        rng = np.random.RandomState(np.random.SeedSequence(
+            [int(self.selection_seed), int(server_round)]).generate_state(1)[0])
 
         if self.selection_mode == "fedcs":
             # Resource-proxy ranking in place of a wall-clock deadline (Section 4.7.4).
@@ -89,12 +107,35 @@ class RAFAFLStrategy(fl.server.strategy.FedAvg):
         deferred = [(cp, fr) for cp, fr in results
                     if fr.metrics.get("deferred", False)]
 
+        selected = self._selected.get(server_round, [])
+        responded = {cp.cid for cp, _ in results}
+        missing = [cid for cid in selected if cid not in responded]
+        n_failed = max(len(failures), len(missing))
+        if n_failed:
+            self.incomplete_rounds.append(server_round)
+            for f in failures[:3]:
+                if len(self.failure_messages) < 20:
+                    self.failure_messages.append(
+                        f"round {server_round}: {f!r}" if isinstance(f, BaseException)
+                        else f"round {server_round}: client {f[0].cid} status {f[1].status}")
+
         self.total_transmissions += len(active)
         self.round_log.append({
             "round": server_round,
+            "selected": len(selected),
             "active": len(active),
             "deferred": len(deferred),
+            "failed": n_failed,
+            "missing_cids": missing,
             "cumulative_transmissions": self.total_transmissions,
+            "clients": [
+                {"cid": cp.cid, "deferred": bool(fr.metrics.get("deferred", False)),
+                 "rule": fr.metrics.get("rule"), "delta": fr.metrics.get("delta"),
+                 "drift": fr.metrics.get("drift"), "rho": fr.metrics.get("rho"),
+                 "val_loss_post": fr.metrics.get("val_loss_post"),
+                 "epochs": fr.metrics.get("epochs")}
+                for cp, fr in results
+            ],
         })
 
         if self.scaffold and active:
@@ -106,9 +147,9 @@ class RAFAFLStrategy(fl.server.strategy.FedAvg):
 
         if self.selection_mode == "oort":
             for cp, fr in active:
-                if "train_loss" in fr.metrics:
-                    self.client_utility[cp.cid] = oort_statistical_utility(
-                        [fr.metrics["train_loss"]], fr.num_examples)
+                if fr.metrics.get("train_loss_sq_mean") is not None:
+                    self.client_utility[cp.cid] = oort_utility_from_stats(
+                        fr.num_examples, fr.metrics["train_loss_sq_mean"])
 
         min_required = max(1, int(self.min_active_fraction * len(results)))
         if len(active) < min_required and self.previous_parameters is not None:

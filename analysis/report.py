@@ -21,12 +21,14 @@ import os, sys, json, glob, argparse
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import EXPERIMENT
-from analysis.metrics import summarise_run
+from analysis.metrics import summarise_run, deferral_by_client_from_log
 from analysis.stats import compare_all, mean_ci
 
 BASELINES = ["fedavg", "fedprox", "scaffold", "fedcs", "oort"]
 ABLATIONS = ["rafa_no_drift", "rafa_no_resource", "rafa_fixed_epochs", "rafa_equal_weight"]
 GRID_METRICS = ["peak_accuracy", "rounds_to_convergence", "total_transmissions", "bytes_communicated"]
+SENSITIVITY_METRICS = ["peak_accuracy", "rounds_to_convergence", "total_transmissions",
+                       "bytes_communicated", "deferral_rate_mean"]
 
 
 def load_results(results_dir):
@@ -35,9 +37,18 @@ def load_results(results_dir):
         try:
             with open(path) as f:
                 d = json.load(f)
+            # Runs written by the current pipeline carry a "valid" flag; a run
+            # that lost clients to failures is excluded. Legacy files without
+            # the flag are kept so existing tables still regenerate.
+            if d.get("valid") is False:
+                print(f"skipping invalid run: {os.path.basename(path)} "
+                      f"(incomplete rounds: {d.get('incomplete_rounds', [])[:5]})")
+                continue
+            deferral_by_client = deferral_by_client_from_log(d.get("round_log", []))
             d["_summary"] = summarise_run(
                 d["accuracy_curve"], d["macro_f1_curve"],
                 d.get("total_transmissions") or 0, d["param_count"],
+                deferral_by_client=deferral_by_client,
             )
             runs.append(d)
         except (json.JSONDecodeError, KeyError, OSError):
@@ -65,6 +76,30 @@ def grid_table(runs):
             row[m] = mean_ci(vals) if vals else (None, None)
         rows.append(row)
     return rows
+
+
+def sensitivity_table(runs):
+    """One row per theta_rho value, mean +/- CI across seeds (Section 5.7, Table 5.6)."""
+    groups = group_by(runs, ["theta_rho"])
+    rows = []
+    for (theta_rho,), group in sorted(groups.items(), key=lambda kv: kv[0][0]):
+        row = {"theta_rho": theta_rho, "n_seeds": len(group)}
+        for m in SENSITIVITY_METRICS:
+            vals = [g["_summary"][m] for g in group if g["_summary"].get(m) is not None]
+            row[m] = mean_ci(vals) if vals else (None, None)
+        rows.append(row)
+    return rows
+
+
+def print_sensitivity_table(rows):
+    header = (f"{'theta_rho':10s} {'seeds':6s} {'peak_acc':16s} {'rounds_conv':14s} "
+              f"{'transmissions':16s} {'bytes':18s} {'deferral_rate':16s}")
+    print(header)
+    print("-" * len(header))
+    for r in rows:
+        print(f"{r['theta_rho']:<10} {r['n_seeds']:<6} {fmt(r['peak_accuracy']):16s} "
+              f"{fmt(r['rounds_to_convergence'], 1):14s} {fmt(r['total_transmissions'], 1):16s} "
+              f"{fmt(r['bytes_communicated'], 0):18s} {fmt(r['deferral_rate_mean'], 4):16s}")
 
 
 def _paired_by_seed(groups, key, metric):
@@ -178,6 +213,20 @@ def print_full_grid_significance(rows, metric, lower_is_better=False):
               f"  better={better} worse={worse}")
 
 
+def _write_csv(rows, scalar_cols, pair_metrics, path):
+    """scalar_cols are written as-is; pair_metrics are (mean, ci95) tuples, split into two columns."""
+    import csv
+    with open(path, "w", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(scalar_cols + [c for m in pair_metrics for c in (m, f"{m}_ci95")])
+        for r in rows:
+            out_row = [r[c] for c in scalar_cols]
+            for m in pair_metrics:
+                mean, ci = r[m]
+                out_row += [mean, ci]
+            w.writerow(out_row)
+
+
 def fmt(pair, decimals=4):
     mean, ci = pair
     if mean is None:
@@ -225,10 +274,13 @@ def main():
                              "rounds_to_convergence", "total_transmissions",
                              "bytes_communicated", "convergence_speed"])
     ap.add_argument("--out_json", default=None, help="optional path to dump the grid table as JSON")
+    ap.add_argument("--out_csv", default=None, help="optional path to dump the table as CSV (--sensitivity only)")
     ap.add_argument("--full_grid", action="store_true",
                     help="test RAFA-FL vs baselines at every (alpha, N, drift) condition, not just the primary one")
     ap.add_argument("--lower_is_better", action="store_true",
                     help="pass when --metric is one where lower is better for RAFA-FL (e.g. total_transmissions)")
+    ap.add_argument("--sensitivity", action="store_true",
+                    help="print/export Table 5.6 (theta_rho sweep) from --results_dir instead of the main grid")
     args = ap.parse_args()
 
     runs = load_results(args.results_dir)
@@ -236,6 +288,18 @@ def main():
         print(f"No result JSON files found in {args.results_dir}")
         return
     print(f"Loaded {len(runs)} run(s) from {args.results_dir}\n")
+
+    if args.sensitivity:
+        rows = sensitivity_table(runs)
+        print_sensitivity_table(rows)
+        if args.out_json:
+            with open(args.out_json, "w") as f:
+                json.dump(rows, f, indent=2)
+            print(f"\nWrote {args.out_json}")
+        if args.out_csv:
+            _write_csv(rows, ["theta_rho", "n_seeds"], SENSITIVITY_METRICS, args.out_csv)
+            print(f"Wrote {args.out_csv}")
+        return
 
     rows = grid_table(runs)
     print_grid_table(rows)
