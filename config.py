@@ -14,8 +14,8 @@ from typing import List, Optional
 @dataclass
 class AgentConfig:
     # Threshold parameters (theta_delta and theta_d set by pilot; others analytic)
-    theta_delta: float = 0.011579  # 25th pctile of pilot delta (pilot report sha256 2230b93af6a5)
-    theta_d: float = 0.092666      # 90th pctile of pilot no-drift d (pilot report sha256 2230b93af6a5)
+    theta_delta: float = 0.011579  # 25th pctile of pilot delta (pilot report sha256 153cff0debb3)
+    theta_d: float = 0.092666      # 90th pctile of pilot no-drift d (pilot report sha256 153cff0debb3)
     # NOTE: P(Beta(2,2) < 0.20) = 0.104, i.e. 0.20 is the ~10th percentile;
     # the 20th percentile is ~0.287. Value kept as used in the thesis runs.
     theta_rho: float = 0.20       # resource threshold

@@ -129,7 +129,9 @@ class RAFAFLStrategy(fl.server.strategy.FedAvg):
             "missing_cids": missing,
             "cumulative_transmissions": self.total_transmissions,
             "clients": [
-                {"cid": cp.cid, "deferred": bool(fr.metrics.get("deferred", False)),
+                # cid = Flower node id (random per simulation);
+                # pid = data-partition index reported by the client (stable).
+                {"cid": cp.cid, "pid": fr.metrics.get("cid"), "deferred": bool(fr.metrics.get("deferred", False)),
                  "rule": fr.metrics.get("rule"), "delta": fr.metrics.get("delta"),
                  "drift": fr.metrics.get("drift"), "rho": fr.metrics.get("rho"),
                  "val_loss_post": fr.metrics.get("val_loss_post"),

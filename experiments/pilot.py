@@ -71,12 +71,17 @@ def extract_observations(run_result):
             if c.get("rho") is not None:
                 rhos.append(float(c["rho"]))
             if c.get("val_loss_post") is not None:
-                post_losses[c["cid"]].append(float(c["val_loss_post"]))
+                # group by data-partition index (stable across runs); older
+                # logs without "pid" fall back to the per-run Flower node id
+                key = str(c.get("pid", c["cid"]))
+                post_losses[key].append(float(c["val_loss_post"]))
     deltas = [prev - cur for seq in post_losses.values()
               for prev, cur in zip(seq[:-1], seq[1:])]
+    # Sorted so the report and the resampling in analyse() do not depend on
+    # the order in which Ray workers returned results within a round.
     return {
-        "delta": deltas, "drift": drifts, "rho": rhos,
-        "participations_per_client": {k: len(v) for k, v in post_losses.items()},
+        "delta": sorted(deltas), "drift": sorted(drifts), "rho": sorted(rhos),
+        "participations_per_client": dict(sorted((k, len(v)) for k, v in post_losses.items())),
     }
 
 

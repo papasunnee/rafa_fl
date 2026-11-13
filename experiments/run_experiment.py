@@ -74,6 +74,7 @@ def provenance(X_train, y_train, theta_rho=None, ablation=None):
         except (OSError, subprocess.SubprocessError):
             return None
 
+    _git("update-index", "-q", "--refresh")   # clear stale stat info before status
     h = hashlib.sha256()
     h.update(np.ascontiguousarray(X_train).tobytes())
     h.update(np.ascontiguousarray(y_train).tobytes())
