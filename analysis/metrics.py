@@ -36,6 +36,19 @@ def convergence_speed(accuracy_curve, window=30):
     return float(np.polyfit(np.arange(len(acc)), acc, 1)[0])
 
 
+def deferral_by_client_from_log(round_log):
+    """
+    Given a run's round_log (list of per-round dicts with a "clients" list,
+    as written by RAFAFLStrategy.aggregate_fit), return {cid: [deferred_bool, ...]}
+    for use with per_client_deferral_rate().
+    """
+    out = {}
+    for entry in round_log:
+        for c in entry.get("clients", []):
+            out.setdefault(c["cid"], []).append(bool(c["deferred"]))
+    return out
+
+
 def per_client_deferral_rate(round_logs_per_client):
     """
     Given a dict {cid: [deferred_bool, ...]}, return mean and std of the

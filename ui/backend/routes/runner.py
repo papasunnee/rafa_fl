@@ -1,10 +1,13 @@
 """
 runner.py — POST /run, GET /run/{job_id} (LOCAL DEV ONLY -- see main.py/README).
 
-Launches `python -m experiments.run_experiment` exactly as documented in that
-module's own CLI, as a subprocess, and streams its stdout back via polling.
-Jobs are tracked in memory only (lost on backend restart) -- acceptable for a
-local-dev-only tool with no persistence requirement.
+Launches ui/backend/instrumented_entrypoint.py (a thin wrapper around
+`python -m experiments.run_experiment`, same CLI, that also emits one
+"UI_EVENT: {...}" JSON line per round with each sampled client's cid/rule/
+deferred status -- see that file's docstring) as a subprocess, and streams
+its output back via polling. Jobs are tracked in memory only (lost on
+backend restart) -- acceptable for a local-dev-only tool with no
+persistence requirement.
 """
 
 import os
@@ -12,6 +15,7 @@ import subprocess
 import sys
 import threading
 import uuid
+import json
 
 from fastapi import APIRouter
 from pydantic import BaseModel
@@ -19,6 +23,7 @@ from pydantic import BaseModel
 router = APIRouter()
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+ENTRYPOINT = os.path.join(REPO_ROOT, "ui", "backend", "instrumented_entrypoint.py")
 
 _jobs = {}
 _jobs_lock = threading.Lock()
@@ -33,6 +38,9 @@ class RunRequest(BaseModel):
     drift: bool = False       # inject concept drift partway through the run
 
 
+_EVENT_PREFIX = "UI_EVENT: "
+
+
 def _stream_job(job_id, cmd):
     proc = subprocess.Popen(
         cmd, cwd=REPO_ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -41,6 +49,14 @@ def _stream_job(job_id, cmd):
     with _jobs_lock:
         _jobs[job_id]["proc"] = proc
     for line in proc.stdout:
+        if line.startswith(_EVENT_PREFIX):
+            try:
+                event = json.loads(line[len(_EVENT_PREFIX):])
+                with _jobs_lock:
+                    _jobs[job_id]["events"].append(event)
+                continue
+            except json.JSONDecodeError:
+                pass  # fall through, show the raw line instead
         with _jobs_lock:
             _jobs[job_id]["output"] += line
     proc.wait()
@@ -52,7 +68,7 @@ def _stream_job(job_id, cmd):
 @router.post("/run")
 def start_run(req: RunRequest):
     job_id = uuid.uuid4().hex[:12]
-    cmd = [sys.executable, "-m", "experiments.run_experiment",
+    cmd = [sys.executable, ENTRYPOINT,
           "--method", req.method, "--alpha", str(req.alpha),
           "--num_clients", str(req.num_clients), "--seed", str(req.seed),
           "--out", "results/"]
@@ -62,7 +78,10 @@ def start_run(req: RunRequest):
         cmd += ["--ablation", req.ablation]
 
     with _jobs_lock:
-        _jobs[job_id] = {"status": "running", "output": "", "proc": None, "returncode": None}
+        _jobs[job_id] = {
+            "status": "running", "output": "", "events": [],
+            "proc": None, "returncode": None,
+        }
 
     thread = threading.Thread(target=_stream_job, args=(job_id, cmd), daemon=True)
     thread.start()
@@ -74,10 +93,16 @@ def get_run(job_id: str):
     """Poll a job's status. `status` is one of:
     "running" (still going), "done" (exit code 0), "error" (nonzero exit),
     or "not_found" (unknown job_id, e.g. after a backend restart).
-    `output` accumulates the subprocess's stdout/stderr so far -- safe to
-    poll repeatedly, it's just the current state, not a diff."""
+    `output` accumulates the subprocess's non-event stdout/stderr so far --
+    safe to poll repeatedly, it's just the current state, not a diff.
+    `events` is the full list of per-round {round, clients: [{cid, rule,
+    deferred}]} snapshots seen so far, oldest first -- also safe to re-poll,
+    it only grows."""
     with _jobs_lock:
         job = _jobs.get(job_id)
     if job is None:
-        return {"status": "not_found", "output": ""}
-    return {"status": job["status"], "output": job["output"], "returncode": job["returncode"]}
+        return {"status": "not_found", "output": "", "events": []}
+    return {
+        "status": job["status"], "output": job["output"],
+        "events": job["events"], "returncode": job["returncode"],
+    }

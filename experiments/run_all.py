@@ -34,14 +34,15 @@ from experiments.run_experiment import result_tag, ABLATIONS
 
 BASELINES = ["fedavg", "fedprox", "scaffold", "fedcs", "oort"]
 ALL_METHODS = ["rafa_fl"] + BASELINES
+THETA_RHO_GRID = [0.05, 0.10, 0.20, 0.30, 0.40, 0.50]  # sweep around the config default (0.20)
 MAX_ATTEMPTS = 3      # retries before giving up on a job
 JOB_TIMEOUT_SECONDS = 600   # generously above the slowest legitimate job observed (~5 min);
                             # a hang gets force-killed well before this would matter for real work
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def _already_done(out_dir, method, alpha, num_clients, seed, drift, ablation=None):
-    tag = result_tag(method, alpha, num_clients, seed, drift, ablation)
+def _already_done(out_dir, method, alpha, num_clients, seed, drift, ablation=None, theta_rho=None):
+    tag = result_tag(method, alpha, num_clients, seed, drift, ablation, theta_rho)
     return os.path.exists(os.path.join(out_dir, f"{tag}.json"))
 
 
@@ -53,7 +54,7 @@ def _kill_process_tree(pid):
                    capture_output=True)
 
 
-def _run_job_subprocess(method, alpha, num_clients, seed, drift, out_dir, ablation=None):
+def _run_job_subprocess(method, alpha, num_clients, seed, drift, out_dir, ablation=None, theta_rho=None):
     cmd = [sys.executable, "-m", "experiments.run_experiment",
           "--method", method, "--alpha", str(alpha), "--num_clients", str(num_clients),
           "--seed", str(seed), "--out", out_dir]
@@ -61,6 +62,8 @@ def _run_job_subprocess(method, alpha, num_clients, seed, drift, out_dir, ablati
         cmd.append("--drift")
     if ablation:
         cmd += ["--ablation", ablation]
+    if theta_rho is not None:
+        cmd += ["--theta_rho", str(theta_rho)]
 
     proc = subprocess.Popen(cmd, cwd=PROJECT_ROOT,
                             creationflags=subprocess.CREATE_NEW_PROCESS_GROUP)
@@ -119,17 +122,37 @@ def ablation_grid(out_dir, quick=False, only_n=None):
         _run_with_retries(label, "rafa_fl", a, n, seed, True, out_dir, ablation=ablation)
 
 
+def sensitivity_grid(out_dir, quick=False):
+    """Sweep theta_rho at the primary condition under drift (Chapter 5 sensitivity figure)."""
+    a, n = EXPERIMENT.primary_alpha, EXPERIMENT.primary_n
+    seeds = EXPERIMENT.seeds[:1] if quick else EXPERIMENT.seeds
+    jobs = list(itertools.product(THETA_RHO_GRID, seeds))
+    print(f"Sensitivity grid: {len(jobs)} runs")
+    for i, (theta_rho, seed) in enumerate(jobs, 1):
+        label = f"rafa_fl a={a} n={n} s={seed} drift=True theta_rho={theta_rho}"
+        if _already_done(out_dir, "rafa_fl", a, n, seed, True, theta_rho=theta_rho):
+            print(f"[{i}/{len(jobs)}] SKIP (already done): {label}")
+            continue
+        print(f"[{i}/{len(jobs)}] {label}")
+        _run_with_retries(label, "rafa_fl", a, n, seed, True, out_dir, theta_rho=theta_rho)
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="results/")
     ap.add_argument("--quick", action="store_true", help="small smoke-test grid")
     ap.add_argument("--skip_main", action="store_true")
     ap.add_argument("--skip_ablation", action="store_true")
+    ap.add_argument("--sensitivity", action="store_true",
+                    help="run the theta_rho sensitivity grid instead of main+ablation")
     ap.add_argument("--only_n", type=int, default=None,
                     help="restrict to one num_clients value")
     args = ap.parse_args()
-    if not args.skip_main:
-        main_grid(args.out, args.quick, args.only_n)
-    if not args.skip_ablation:
-        ablation_grid(args.out, args.quick, args.only_n)
+    if args.sensitivity:
+        sensitivity_grid(args.out, args.quick)
+    else:
+        if not args.skip_main:
+            main_grid(args.out, args.quick, args.only_n)
+        if not args.skip_ablation:
+            ablation_grid(args.out, args.quick, args.only_n)
     print("Grid complete.")
