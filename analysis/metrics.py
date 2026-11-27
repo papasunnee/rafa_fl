@@ -61,11 +61,27 @@ def per_client_deferral_rate(round_logs_per_client):
 
 
 def summarise_run(accuracy_curve, f1_curve, total_transmissions, param_count,
-                  deferral_by_client=None):
-    """Bundle all scalar metrics for a single run into a dict."""
+                  deferral_by_client=None, drift_round=50):
+    """Bundle all scalar metrics for a single run into a dict.
+
+    Peak accuracy is the maximum over a noisy curve, so after drift it
+    reflects the luckiest round rather than sustained performance. The
+    window metrics below report what the model is like over a period:
+      final10_accuracy        mean of the last 10 rounds
+      post_drift_mean_accuracy mean over rounds after drift_round
+      post_drift_min_accuracy  worst round after drift_round
+      post_drift_std_accuracy  round-to-round volatility after drift_round
+    In no-drift runs the post_drift_* values cover the same rounds, so the
+    two settings can be compared directly.
+    """
     acc = np.asarray(accuracy_curve, dtype=np.float64)
+    post = acc[drift_round:] if len(acc) > drift_round else acc[:0]
     out = {
         "peak_accuracy": float(acc.max()) if len(acc) else None,
+        "final10_accuracy": float(acc[-10:].mean()) if len(acc) else None,
+        "post_drift_mean_accuracy": float(post.mean()) if len(post) else None,
+        "post_drift_min_accuracy": float(post.min()) if len(post) else None,
+        "post_drift_std_accuracy": float(post.std()) if len(post) else None,
         "final_accuracy": float(acc[-1]) if len(acc) else None,
         "final_macro_f1": float(f1_curve[-1]) if len(f1_curve) else None,
         "rounds_to_convergence": rounds_to_convergence(acc),

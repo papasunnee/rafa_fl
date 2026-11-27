@@ -4,812 +4,6887 @@
   "num_clients": 50,
   "seed": 456,
   "drift": true,
+  "theta_rho": 0.2,
   "param_count": 80582,
+  "num_rounds": 100,
+  "observe_only": false,
   "accuracy_curve": [
-    0.342042755344418,
-    0.328469630132338,
-    0.3474720054292501,
-    0.4825246012894469,
-    0.3254156769596199,
-    0.5456396335256193,
-    0.6881574482524602,
-    0.4387512724804886,
-    0.5748218527315915,
-    0.7709535120461486,
-    0.6596538853070919,
-    0.8137088564642009,
-    0.5992534781133356,
-    0.834068544282321,
-    0.843909060061079,
-    0.6582965727858839,
-    0.498812351543943,
-    0.5717678995588734,
-    0.4730234136409908,
-    0.5795724465558195,
-    0.7071598235493722,
-    0.6494740413980319,
-    0.7214116050220564,
-    0.669155072955548,
-    0.6861214794706482,
-    0.7115710892432983,
-    0.5381744146589752,
-    0.7648456057007126,
-    0.7465218866644044,
-    0.7153036986766202,
-    0.5429250084832032,
-    0.8540889039701391,
-    0.7685782151340346,
-    0.8537495758398371,
-    0.8856464200882254,
-    0.820834747200543,
-    0.9093993892093655,
-    0.8238887003732609,
-    0.8832711231761113,
-    0.8306752629793009,
-    0.8883610451306413,
-    0.9189005768578216,
-    0.825924669155073,
-    0.831353919239905,
-    0.9311163895486936,
-    0.8982015609093994,
-    0.7305734645402104,
-    0.820834747200543,
-    0.8839497794367153,
-    0.3607058025110282,
-    0.4021038344078724,
-    0.5853410247709535,
-    0.16253817441465898,
-    0.35188327112317613,
-    0.7387173396674585,
-    0.7987784187309128,
-    0.9209365456396336,
-    0.5544621649134713,
-    0.16084153376314897,
-    0.6515100101798439,
-    0.3471326772989481,
-    0.31150322361723787,
-    0.4770953512046149,
-    0.511706820495419,
-    0.3732609433322022,
-    0.40074652188666443,
-    0.29385816084153377,
-    0.7265015269765863,
-    0.836104513064133,
-    0.821174075330845,
-    0.7224295894129623,
-    0.7248048863250763,
-    0.43603664743807263,
-    0.37801153715643027,
-    0.675602307431286,
-    0.19409569053274517,
-    0.336613505259586,
-    0.4075330844927044,
-    0.7862232779097387,
-    0.6508313539192399,
-    0.6464200882253138,
-    0.40685442823210044,
-    0.5948422124194096,
+    0.2796063793688497,
+    0.34373939599592807,
+    0.37190363081099426,
+    0.46420088225313877,
+    0.4791313199864269,
+    0.5527655242619613,
+    0.5951815405497116,
+    0.3169324737020699,
+    0.45503902273498475,
+    0.5239226331862912,
+    0.5273159144893111,
+    0.6179165252799457,
+    0.6094333220223956,
+    0.6983372921615202,
+    0.6284356973193078,
+    0.5222259925347811,
     0.6504920257889379,
-    0.5907702748557856,
-    0.8754665761791652,
-    0.846284356973193,
-    0.7801153715643027,
-    0.8625721072276892,
-    0.7814726840855107,
-    0.8941296233457754,
-    0.2473702069901595,
-    0.6830675262979301,
-    0.4886325076348829,
     0.5184933831014591,
-    0.7651849338310146,
-    0.675941635561588,
-    0.8445877163216831,
-    0.45469969460468274,
-    0.3637597556837462
+    0.7353240583644384,
+    0.6321683067526298,
+    0.6789955887343061,
+    0.505598914149983,
+    0.48795385137427894,
+    0.6009501187648456,
+    0.5232439769256871,
+    0.6043434000678656,
+    0.7102137767220903,
+    0.6179165252799457,
+    0.6956226671191041,
+    0.7930098405157787,
+    0.6789955887343061,
+    0.6250424160162877,
+    0.7465218866644044,
+    0.7645062775704106,
+    0.6861214794706482,
+    0.7176789955887343,
+    0.5985748218527316,
+    0.7363420427553444,
+    0.6124872751951137,
+    0.8164234815066169,
+    0.839497794367153,
+    0.7142857142857143,
+    0.8428910756701731,
+    0.8598574821852731,
+    0.7774007465218866,
+    0.7943671530369868,
+    0.827960637936885,
+    0.8842891075670173,
+    0.8530709195792331,
+    0.8754665761791652,
+    0.7614523243976926,
+    0.8965049202578894,
+    0.9226331862911435,
+    0.8832711231761113,
+    0.8130302002035968,
+    0.8595181540549711,
+    0.9222938581608415,
+    0.8656260604004072,
+    0.8998982015609094,
+    0.7166610111978283,
+    0.7875805904309467,
+    0.834407872412623,
+    0.8493383101459111,
+    0.9246691550729556,
+    0.8116728876823889,
+    0.6623685103495079,
+    0.6963013233797082,
+    0.824906684764167,
+    0.501526976586359,
+    0.8707159823549372,
+    0.8052256532066508,
+    0.8598574821852731,
+    0.9131319986426875,
+    0.3688496776382762,
+    0.8876823888700374,
+    0.22158126908720732,
+    0.4530030539531727,
+    0.16355615880556498,
+    0.6925687139463862,
+    0.838140481845945,
+    0.8751272480488632,
+    0.8181201221581269,
+    0.7889379029521547,
+    0.9039701391245334,
+    0.9043094672548354,
+    0.8900576857821514,
+    0.8859857482185273,
+    0.8842891075670173,
+    0.8306752629793009,
+    0.6206311503223617,
+    0.7611129962673906,
+    0.8676620291822192,
+    0.9243298269426535,
+    0.8982015609093994,
+    0.9063454360366474,
+    0.9287410926365796,
+    0.9375636240244316,
+    0.8978622327790974,
+    0.9117746861214795,
+    0.8720732948761453
   ],
   "macro_f1_curve": [
-    0.16985477088970924,
-    0.1749487011758152,
-    0.21362127101987513,
-    0.34502514009821,
-    0.16378382273640693,
-    0.433719114539707,
-    0.641782950579448,
-    0.316782727109088,
-    0.4821073922517862,
-    0.7136781605175734,
-    0.6105605696153388,
-    0.7847873018141246,
-    0.5537745780163269,
-    0.8187861034507247,
-    0.8293249755015076,
-    0.6414068963366829,
-    0.3589194605243788,
-    0.4966402205098293,
-    0.35716589935770265,
-    0.48109704385364355,
-    0.6476905619751198,
-    0.5710058982392797,
-    0.6549074994189831,
-    0.6161727117671246,
-    0.6163596396855157,
-    0.6459783289857649,
-    0.49503613957640485,
-    0.7491080047079133,
-    0.682955970963008,
-    0.6618913549750994,
-    0.4891995240621272,
-    0.8524056784700278,
-    0.7315890477809784,
-    0.8472786468048793,
-    0.8813989203183009,
-    0.8122058296340859,
-    0.9050178947120746,
-    0.8168247552783057,
-    0.8801181249675704,
-    0.8231249578024102,
-    0.8817278043698936,
-    0.9175918148917911,
-    0.7972457605603284,
-    0.8059771800060851,
-    0.9278592493368962,
-    0.8966650110541581,
-    0.6783459118160434,
-    0.8131740608915861,
-    0.8806612120283724,
-    0.25819688601196306,
-    0.3297957642024606,
-    0.49386623417375647,
-    0.13868823720234538,
-    0.20582298759463213,
-    0.6808610790138324,
-    0.7617094017617726,
-    0.919476497737306,
-    0.47810410641098944,
-    0.11126821360429368,
-    0.5458193677463599,
-    0.2484507736854764,
-    0.22290346405374292,
-    0.39664376862411516,
-    0.37412796606116566,
-    0.24664099471284287,
-    0.30464411603772007,
-    0.283698945299784,
-    0.6678438152974121,
-    0.8267444336037838,
-    0.811359758072827,
-    0.6693190739981434,
-    0.674265048382451,
-    0.33168400537146525,
-    0.2659186793242585,
-    0.6361989741218629,
-    0.14012229204425172,
-    0.21777393524712996,
-    0.34695198561294655,
-    0.7435155828330946,
-    0.5851658474532335,
-    0.5601176336352666,
-    0.38170661142956325,
-    0.5141631936353721,
-    0.5718912597845601,
-    0.544829064306838,
-    0.8655617073556178,
-    0.83504683474108,
-    0.7524052216930803,
-    0.8600548491873523,
-    0.7465075096145726,
-    0.8911724632006172,
-    0.1888751013656033,
-    0.6295504514814415,
-    0.34369461461740797,
-    0.43827583657598884,
-    0.7008147779355868,
-    0.60292276503238,
-    0.8400435987885856,
-    0.362167974026021,
-    0.32349806135239273
+    0.1682833174497691,
+    0.19117323765540425,
+    0.22291171409350996,
+    0.35207438316596323,
+    0.3421471004728545,
+    0.4535958896671421,
+    0.48214268562117174,
+    0.17395313249180144,
+    0.3312152112366629,
+    0.4195978697020087,
+    0.42090626071719534,
+    0.533430777000136,
+    0.5049144269061484,
+    0.6501152890464025,
+    0.5367490997576533,
+    0.38835038278399897,
+    0.5723414991239157,
+    0.37529337664950996,
+    0.7075205437060164,
+    0.5649560271507621,
+    0.6278803918071055,
+    0.4000977744389815,
+    0.37134388248344047,
+    0.5013907755527489,
+    0.43381800925665587,
+    0.49689322105191946,
+    0.6580631842545395,
+    0.5443325918027014,
+    0.6530339805431332,
+    0.7557954455732206,
+    0.5787165311890974,
+    0.5351390044837968,
+    0.7316165379749261,
+    0.7332512787636389,
+    0.6379800035150757,
+    0.6716686665659221,
+    0.4997173908685985,
+    0.7084457399796754,
+    0.541600501638141,
+    0.8005424197920438,
+    0.8304890112024609,
+    0.6846833584867721,
+    0.8352257890298392,
+    0.8572101955503406,
+    0.7452303354702954,
+    0.7674815318621461,
+    0.8093019098625532,
+    0.8799835421643244,
+    0.847986381421585,
+    0.8730675241448503,
+    0.7363519255533671,
+    0.8916545677791262,
+    0.921692543428405,
+    0.8781680398384862,
+    0.7982798991471757,
+    0.8522190889927268,
+    0.919442434111779,
+    0.8602852232894196,
+    0.895083311904913,
+    0.69775784506418,
+    0.7432987079878375,
+    0.8278104775243208,
+    0.8173342730681968,
+    0.9233621656717043,
+    0.7698866347060366,
+    0.5933177007416928,
+    0.6095772589535906,
+    0.8131536636942985,
+    0.43479169199575063,
+    0.8645246295214252,
+    0.791953338738447,
+    0.8570959551399797,
+    0.9114209875494241,
+    0.3345162276939946,
+    0.8822260532871006,
+    0.15962119012163847,
+    0.3806921265754966,
+    0.11392568632619594,
+    0.6608013711692463,
+    0.8179556876537107,
+    0.8718619026736117,
+    0.8069666880252616,
+    0.7736285363640077,
+    0.9021198775606055,
+    0.8957441411423139,
+    0.886801703677945,
+    0.8787195637101334,
+    0.8821550411538625,
+    0.8279255556247467,
+    0.5881554266624901,
+    0.7445921525976159,
+    0.8563373170469771,
+    0.9226592382480258,
+    0.8970551334856238,
+    0.8997329909446039,
+    0.9280247698548182,
+    0.9366905571880197,
+    0.8964592908387482,
+    0.9106740639548825,
+    0.867563000562098
   ],
   "round_log": [
     {
       "round": 1,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 5
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 5,
+      "clients": [
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4219023265081592828",
+          "pid": 0,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 2,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 10
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 10,
+      "clients": [
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 3,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 15
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 15,
+      "clients": [
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 4,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 20
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 20,
+      "clients": [
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 5,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 25
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 25,
+      "clients": [
+        {
+          "cid": "7323099933722877943",
+          "pid": 27,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17090245605743434737",
+          "pid": 43,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 6,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 30
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 30,
+      "clients": [
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17090245605743434737",
+          "pid": 43,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 7,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 35
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 35,
+      "clients": [
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 8,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 40
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 40,
+      "clients": [
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 9,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 45
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 45,
+      "clients": [
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7323099933722877943",
+          "pid": 27,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 10,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 50
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 50,
+      "clients": [
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 11,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 55
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 55,
+      "clients": [
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4219023265081592828",
+          "pid": 0,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 12,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 60
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 60,
+      "clients": [
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 13,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 65
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 65,
+      "clients": [
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "3699022025481733782",
+          "pid": 41,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11541681927156099217",
+          "pid": 42,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4374332305776768086",
+          "pid": 4,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 14,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 70
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 70,
+      "clients": [
+        {
+          "cid": "2702467286011120287",
+          "pid": 8,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 15,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 75
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 75,
+      "clients": [
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "3699022025481733782",
+          "pid": 41,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 16,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 80
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 80,
+      "clients": [
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 17,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 85
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 85,
+      "clients": [
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17782286556462173099",
+          "pid": 40,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 18,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 90
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 90,
+      "clients": [
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 19,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 95
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 95,
+      "clients": [
+        {
+          "cid": "2702467286011120287",
+          "pid": 8,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17782286556462173099",
+          "pid": 40,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7323099933722877943",
+          "pid": 27,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 20,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 100
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 100,
+      "clients": [
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 21,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 105
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 105,
+      "clients": [
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17782286556462173099",
+          "pid": 40,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 22,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 110
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 110,
+      "clients": [
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 23,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 115
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 115,
+      "clients": [
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 24,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 120
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 120,
+      "clients": [
+        {
+          "cid": "6181724685039160525",
+          "pid": 31,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13023197683231470194",
+          "pid": 6,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 25,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 125
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 125,
+      "clients": [
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "3699022025481733782",
+          "pid": 41,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 26,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 130
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 130,
+      "clients": [
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4219023265081592828",
+          "pid": 0,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17090245605743434737",
+          "pid": 43,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 27,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 135
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 135,
+      "clients": [
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "3699022025481733782",
+          "pid": 41,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 28,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 140
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 140,
+      "clients": [
+        {
+          "cid": "7323099933722877943",
+          "pid": 27,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 29,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 145
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 145,
+      "clients": [
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 30,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 150
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 150,
+      "clients": [
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 31,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 155
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 155,
+      "clients": [
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 32,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 160
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 160,
+      "clients": [
+        {
+          "cid": "11541681927156099217",
+          "pid": 42,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 33,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 165
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 165,
+      "clients": [
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 34,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 170
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 170,
+      "clients": [
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13023197683231470194",
+          "pid": 6,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 35,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 175
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 175,
+      "clients": [
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 36,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 180
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 180,
+      "clients": [
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4219023265081592828",
+          "pid": 0,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 37,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 185
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 185,
+      "clients": [
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6181724685039160525",
+          "pid": 31,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 38,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 190
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 190,
+      "clients": [
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13023197683231470194",
+          "pid": 6,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17782286556462173099",
+          "pid": 40,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 39,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 195
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 195,
+      "clients": [
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4219023265081592828",
+          "pid": 0,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 40,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 200
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 200,
+      "clients": [
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 41,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 205
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 205,
+      "clients": [
+        {
+          "cid": "17090245605743434737",
+          "pid": 43,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17782286556462173099",
+          "pid": 40,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 42,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 210
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 210,
+      "clients": [
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 43,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 215
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 215,
+      "clients": [
+        {
+          "cid": "2702467286011120287",
+          "pid": 8,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 44,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 220
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 220,
+      "clients": [
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 45,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 225
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 225,
+      "clients": [
+        {
+          "cid": "6181724685039160525",
+          "pid": 31,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 46,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 230
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 230,
+      "clients": [
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 47,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 235
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 235,
+      "clients": [
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 48,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 240
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 240,
+      "clients": [
+        {
+          "cid": "3699022025481733782",
+          "pid": 41,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 49,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 245
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 245,
+      "clients": [
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6181724685039160525",
+          "pid": 31,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7323099933722877943",
+          "pid": 27,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 50,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 250
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 250,
+      "clients": [
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13023197683231470194",
+          "pid": 6,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 51,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 255
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 255,
+      "clients": [
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 52,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 260
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 260,
+      "clients": [
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 53,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 265
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 265,
+      "clients": [
+        {
+          "cid": "7323099933722877943",
+          "pid": 27,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 54,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 270
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 270,
+      "clients": [
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 55,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 275
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 275,
+      "clients": [
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11541681927156099217",
+          "pid": 42,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6181724685039160525",
+          "pid": 31,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 56,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 280
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 280,
+      "clients": [
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 57,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 285
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 285,
+      "clients": [
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 58,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 290
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 290,
+      "clients": [
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4219023265081592828",
+          "pid": 0,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17090245605743434737",
+          "pid": 43,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 59,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 295
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 295,
+      "clients": [
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17090245605743434737",
+          "pid": 43,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 60,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 300
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 300,
+      "clients": [
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 61,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 305
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 305,
+      "clients": [
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 62,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 310
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 310,
+      "clients": [
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 63,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 315
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 315,
+      "clients": [
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 64,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 320
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 320,
+      "clients": [
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 65,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 325
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 325,
+      "clients": [
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 66,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 330
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 330,
+      "clients": [
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13339828178837318810",
+          "pid": 9,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 67,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 335
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 335,
+      "clients": [
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11541681927156099217",
+          "pid": 42,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 68,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 340
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 340,
+      "clients": [
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 69,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 345
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 345,
+      "clients": [
+        {
+          "cid": "6181724685039160525",
+          "pid": 31,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4219023265081592828",
+          "pid": 0,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 70,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 350
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 350,
+      "clients": [
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 71,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 355
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 355,
+      "clients": [
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 72,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 360
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 360,
+      "clients": [
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 73,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 365
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 365,
+      "clients": [
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "451063701033913603",
+          "pid": 25,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 74,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 370
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 370,
+      "clients": [
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 75,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 375
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 375,
+      "clients": [
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4374332305776768086",
+          "pid": 4,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 76,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 380
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 380,
+      "clients": [
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 77,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 385
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 385,
+      "clients": [
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2702467286011120287",
+          "pid": 8,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 78,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 390
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 390,
+      "clients": [
+        {
+          "cid": "6181724685039160525",
+          "pid": 31,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10414381020483626047",
+          "pid": 28,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 79,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 395
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 395,
+      "clients": [
+        {
+          "cid": "11541681927156099217",
+          "pid": 42,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12190863434477582732",
+          "pid": 37,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 80,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 400
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 400,
+      "clients": [
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10006229714439095384",
+          "pid": 7,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 81,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 405
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 405,
+      "clients": [
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 82,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 410
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 410,
+      "clients": [
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11541681927156099217",
+          "pid": 42,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2702467286011120287",
+          "pid": 8,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 83,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 415
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 415,
+      "clients": [
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8218258522960460535",
+          "pid": 35,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 84,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 420
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 420,
+      "clients": [
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7323099933722877943",
+          "pid": 27,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 85,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 425
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 425,
+      "clients": [
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17782286556462173099",
+          "pid": 40,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5039806893306164778",
+          "pid": 17,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 86,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 430
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 430,
+      "clients": [
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 87,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 435
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 435,
+      "clients": [
+        {
+          "cid": "3699022025481733782",
+          "pid": 41,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7688807256946375018",
+          "pid": 20,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5885370260339045268",
+          "pid": 15,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 88,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 440
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 440,
+      "clients": [
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4601688711106299254",
+          "pid": 10,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 89,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 445
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 445,
+      "clients": [
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4374332305776768086",
+          "pid": 4,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 90,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 450
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 450,
+      "clients": [
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11189161271392686030",
+          "pid": 49,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12286535801105066538",
+          "pid": 13,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 91,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 455
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 455,
+      "clients": [
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "11462063715492862442",
+          "pid": 38,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5743879529733546346",
+          "pid": 23,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 92,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 460
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 460,
+      "clients": [
+        {
+          "cid": "5983755288038518385",
+          "pid": 32,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "7252607083549983013",
+          "pid": 12,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 93,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 465
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 465,
+      "clients": [
+        {
+          "cid": "4352080549838860217",
+          "pid": 26,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2702467286011120287",
+          "pid": 8,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2932027635039465271",
+          "pid": 45,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "12318309389505606474",
+          "pid": 2,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 94,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 470
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 470,
+      "clients": [
+        {
+          "cid": "18060756022141311807",
+          "pid": 34,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "13023197683231470194",
+          "pid": 6,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17584604217112046185",
+          "pid": 44,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4596972054641933494",
+          "pid": 29,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "4374332305776768086",
+          "pid": 4,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 95,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 475
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 475,
+      "clients": [
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2702467286011120287",
+          "pid": 8,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17090245605743434737",
+          "pid": 43,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 96,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 480
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 480,
+      "clients": [
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10617867089458990604",
+          "pid": 3,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14944656200975643505",
+          "pid": 5,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 97,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 485
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 485,
+      "clients": [
+        {
+          "cid": "11812109859196010006",
+          "pid": 46,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "6458180411929818907",
+          "pid": 30,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "17273434459722852574",
+          "pid": 11,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14680882390169489452",
+          "pid": 36,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 98,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 490
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 490,
+      "clients": [
+        {
+          "cid": "9754620123676417785",
+          "pid": 24,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "2015754638415286748",
+          "pid": 39,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "8365609058628812052",
+          "pid": 16,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5245778856928462307",
+          "pid": 21,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 99,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 495
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 495,
+      "clients": [
+        {
+          "cid": "3699022025481733782",
+          "pid": 41,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "1455851496599566469",
+          "pid": 33,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "14131663332821836143",
+          "pid": 14,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "5391099744924584729",
+          "pid": 1,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     },
     {
       "round": 100,
+      "selected": 5,
       "active": 5,
       "deferred": 0,
-      "cumulative_transmissions": 500
+      "failed": 0,
+      "missing_cids": [],
+      "cumulative_transmissions": 500,
+      "clients": [
+        {
+          "cid": "6400187994751749367",
+          "pid": 48,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "10154736375322437107",
+          "pid": 19,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "188891611652055600",
+          "pid": 22,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "16407529863993721385",
+          "pid": 47,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        },
+        {
+          "cid": "9349921449677603939",
+          "pid": 18,
+          "deferred": false,
+          "rule": null,
+          "delta": null,
+          "drift": null,
+          "rho": null,
+          "val_loss_post": null,
+          "epochs": 3
+        }
+      ]
     }
   ],
-  "total_transmissions": 500
+  "total_transmissions": 500,
+  "incomplete_rounds": [],
+  "failure_messages": [],
+  "valid": true,
+  "provenance": {
+    "git_commit": "ee03f27372aa4e7c425a63ea4748a1f47c8c3979",
+    "git_dirty": false,
+    "python": "3.10.11",
+    "versions": {
+      "torch": "2.12.1+cpu",
+      "flwr": "1.30.0",
+      "numpy": "2.2.6",
+      "ray": "2.51.1"
+    },
+    "dataset_sha256": "0e10e908f215c5276c5a20bfe50318f49c4a2a882334b735a1c84600d6e96299",
+    "config": {
+      "agent": {
+        "theta_delta": 0.07403,
+        "theta_d": 0.089331,
+        "theta_rho": 0.2,
+        "s_max": 5,
+        "e_min": 1,
+        "e_max": 5,
+        "e_std": 3,
+        "lam": 0.6,
+        "drift_batch": 32,
+        "kl_epsilon": 1e-08
+      },
+      "model": {
+        "input_dim": 561,
+        "hidden1": 128,
+        "hidden2": 64,
+        "num_classes": 6,
+        "dropout": 0.3,
+        "lr": 0.01,
+        "momentum": 0.0,
+        "batch_size": 32
+      },
+      "experiment": {
+        "dataset_root": "./data/UCI HAR Dataset",
+        "num_rounds": 100,
+        "fraction_fit": 0.1,
+        "val_fraction": 0.2,
+        "drift_round": 50,
+        "drift_fraction": 0.3,
+        "min_client_samples": 10,
+        "seeds": [
+          42,
+          123,
+          456,
+          789,
+          1024
+        ],
+        "num_clients_grid": [
+          10,
+          50,
+          100
+        ],
+        "alpha_grid": [
+          0.1,
+          0.5,
+          1.0
+        ],
+        "primary_n": 50,
+        "primary_alpha": 0.5,
+        "fedprox_mu": 0.01,
+        "oort_exploration_floor": 0.1,
+        "bonferroni_baselines": 5,
+        "alpha_significance": 0.05
+      }
+    },
+    "overrides": {}
+  }
 }

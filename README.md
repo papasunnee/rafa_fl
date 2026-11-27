@@ -7,11 +7,11 @@ training intensity, and communication.
 ## Environment
 
 ```bash
-python3 -m venv venv && source venv/bin/activate
-pip install torch flwr[simulation] numpy scipy scikit-learn
+python -m venv venv && venv\Scriptsctivate        # Windows (source venv/bin/activate elsewhere)
+pip install -r requirements.txt                       # pins flwr[simulation]==1.30.0
 ```
 
-Tested targets: Python 3.10, PyTorch 2.0, Flower (flwr) 1.x.
+Tested: Python 3.10, PyTorch 2.x, Flower 1.30.0, Windows 11 (Ray local cluster).
 
 ## Dataset
 
@@ -26,31 +26,53 @@ UCI_HAR_Dataset/
 
 ## Workflow
 
-1. **Validate the agent logic** (no dataset or torch needed):
+1. **Tests** (agent logic, partitioning, OORT, state persistence, determinism):
    ```bash
    python agent/test_agent.py
+   python fl/test_pipeline.py
    ```
 
-2. **Run the pilot** to set thresholds and confirm epoch-function variation:
+2. **Pilot** (observe-only federated run that calibrates theta_delta and theta_d):
    ```bash
-   python -m experiments.pilot
+   python -m experiments.pilot --write_config
    ```
-   Paste the printed `theta_delta` and `theta_d` into `config.py`.
-   If it warns that the epoch function collapsed, retune `lam` / `e_max`
-   before proceeding.
+   Writes `experiments/pilot_output/pilot_run.json` and `pilot_report.json`
+   and freezes both thresholds into `config.py`, tagged with the report's
+   SHA-256. It refuses to write if the pilot run is invalid or too small.
 
-3. **Smoke test** the full pipeline on a small grid:
+3. **Smoke test** into a throwaway folder (git-ignored), never into `results/`:
    ```bash
-   python -m experiments.run_all --quick --out results/
+   python -m experiments.run_all --quick --out results_test/
    ```
 
-4. **Full grid** (methods × α × N × seeds × drift, plus ablations):
+4. **Experiments** (each skips runs whose JSON already exists, so it can be
+   stopped and restarted):
    ```bash
-   python -m experiments.run_all --out results/
+   python -m experiments.run_all --out results/                # 540 main + 25 ablation runs
+   python -m experiments.run_all --out results/ --sensitivity  # 30 theta_rho sweep runs
+   python -m experiments.centralised                           # centralised reference -> results/centralised/
+   ```
+   `--only_n 10|50|100` runs one N value, so the grid can be split across
+   processes (two at a time was stable on a 16 GB laptop; three was not).
+
+5. **Tables and figures** for Chapter 5:
+   ```bash
+   python -m analysis.thesis_outputs     # results/ -> tables/ (CSV + thesis_tables.md)
+   python -m analysis.plots              # results/ -> figures/
+   python -m analysis.report --metric post_drift_mean_accuracy --full_grid   # ad-hoc checks
+   python ui/scripts/export_results.py   # refresh the dashboard snapshot
    ```
 
-5. **Analyse** the JSON logs in `results/` with `analysis/metrics.py` and
-   `analysis/stats.py` to produce the Chapter 5 tables.
+## Output folders
+
+| Folder | Contents |
+|--------|----------|
+| `results/` | one JSON per run (accuracy curves, per-round and per-client logs, validity flag, provenance: git commit, package versions, dataset hash, config) |
+| `results/centralised/` | centralised reference, one JSON per seed + `summary.json` |
+| `results/_logs/` | run logs (git-ignored) |
+| `tables/` | Chapter 5 tables as CSV, plus `thesis_tables.md` |
+| `figures/` | Chapter 5 figures (PNG) |
+| `experiments/pilot_output/` | pilot run and threshold report |
 
 ## Module map (matches Chapter 4)
 
@@ -75,8 +97,16 @@ FedCS ranks by the resource proxy in place of a wall-clock deadline; OORT uses
 its statistical-utility component only, excluding system speed. Both simplifications
 are conservative — they favour the baseline — so any RAFA-FL advantage is a lower bound.
 
-FedProx and SCAFFOLD client-side hooks (proximal term, control variates) are
-provided in `fl/baselines.py`; wire them into the client factory in
-`run_experiment.py` when running those baselines (the current factory runs the
-shared training loop, which is correct for FedAvg/FedCS/OORT).
-```
+FedProx (proximal term) and SCAFFOLD (control variates) run inside the shared
+client in `fl/rafa_client.py`. Every method uses the same optimiser: plain SGD
+(momentum 0, `ModelConfig.momentum`), because SCAFFOLD's correction assumes
+plain SGD and momentum 0.9 destabilised training on skewed clients.
+
+## Reproducibility note
+
+The seed fixes the data partition, the initial model, which clients drift,
+local training randomness, resource draws and FedCS/OORT selection. Random
+client selection (FedAvg, FedProx, SCAFFOLD, RAFA-FL) goes through Flower's
+`SimpleClientManager.sample`, which uses Python's global `random` and client
+registration order, so the exact clients chosen can differ between reruns.
+`tables/table5_10_replicate_noise.csv` measures the resulting run-to-run noise.

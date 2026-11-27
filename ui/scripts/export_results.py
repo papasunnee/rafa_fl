@@ -21,7 +21,7 @@ from analysis.report import load_results, grid_table
 
 
 def export(results_dir, out_path):
-    runs = load_results(results_dir)
+    runs = load_results(results_dir)    # main grid + ablations; theta_rho sweep excluded
     if not runs:
         raise SystemExit(f"No result JSON files found in {results_dir}")
 
@@ -37,7 +37,10 @@ def export(results_dir, out_path):
         "param_count": r["param_count"],               # model parameter count (for bytes_communicated math)
         "accuracy_curve": r["accuracy_curve"],         # global test accuracy after each round
         "macro_f1_curve": r["macro_f1_curve"],         # macro-averaged F1 after each round
-        "round_log": r["round_log"],                   # [{round, active, deferred, cumulative_transmissions}]
+        # [{round, active, deferred, cumulative_transmissions}] -- the per-client
+        # "clients" detail in the source logs is dropped to keep this file small.
+        "round_log": [{k: e.get(k) for k in ("round", "active", "deferred", "cumulative_transmissions")}
+                      for e in r["round_log"]],
         "total_transmissions": r["total_transmissions"],  # total messages sent across the whole run
     } for r in runs]
 

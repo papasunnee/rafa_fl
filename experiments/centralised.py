@@ -15,7 +15,7 @@ Protocol (per seed):
   - report test accuracy and macro-F1 of that model, plus the final epoch's.
 
 Outputs: <out>/centralised_s<seed>.json per seed and <out>/summary.json
-(mean and std over seeds). The default --out is results_v2/centralised/, a
+(mean and std over seeds). The default --out is results/centralised/, a
 subfolder, so it is never mixed into the federated results.
 
 Usage:
@@ -99,7 +99,7 @@ def run_seed(seed, epochs, X_train, y_train, X_test, y_test):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--epochs", type=int, default=100)
-    ap.add_argument("--out", default=os.path.join("results_v2", "centralised"))
+    ap.add_argument("--out", default=os.path.join("results", "centralised"))
     args = ap.parse_args()
 
     X_train, y_train, X_test, y_test = load_har(EXPERIMENT.dataset_root)

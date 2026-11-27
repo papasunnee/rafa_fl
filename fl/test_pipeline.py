@@ -103,7 +103,7 @@ def test_delta_is_post_training_and_first_selection_explicit():
 
 
 # ---- client-level (torch + flwr) ------------------------------------------
-def _make_client(state_dir, cid=3, exp_seed=42, method="rafa_fl", use_agent=True):
+def _make_client(state_dir, cid=3, exp_seed=42, method="rafa_fl", use_agent=True, drift_batch=32):
     from fl.rafa_client import RAFAFLClient
     rs = np.random.RandomState(cid)
     X = rs.randn(80, 561).astype(np.float32)
@@ -112,7 +112,7 @@ def _make_client(state_dir, cid=3, exp_seed=42, method="rafa_fl", use_agent=True
     model_cfg.e_std = 1
     return RAFAFLClient(cid=cid, X_tr=X[:60], y_tr=y[:60], X_val=X[60:], y_val=y[60:],
                         X_test=X[:20], y_test=y[:20], model_cfg=model_cfg,
-                        agent_cfg=AgentConfig(e_std=1, e_max=2),
+                        agent_cfg=AgentConfig(e_std=1, e_max=2, drift_batch=drift_batch),
                         rng=np.random.RandomState(cid), state_dir=state_dir,
                         use_agent=use_agent, method=method,
                         resource_seed=exp_seed + cid, exp_seed=exp_seed)
@@ -130,7 +130,9 @@ def test_client_state_persists_across_reconstruction():
     with tempfile.TemporaryDirectory() as d:
         rules, deltas = [], []
         for rnd in (1, 2, 3):
-            c = _make_client(d)                         # fresh object every round, like Flower
+            # drift_batch=None: d_t is exactly 0 without drift, so P2 cannot pre-empt
+            # P0 here (with a 32-label batch it can, legitimately, on this tiny client)
+            c = _make_client(d, drift_batch=None)       # fresh object every round, like Flower
             _, n, m = c.fit(params, {"server_round": rnd})
             rules.append(m["rule"]); deltas.append(m["delta"])
             assert "val_loss_post" in m

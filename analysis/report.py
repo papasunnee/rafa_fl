@@ -31,12 +31,30 @@ SENSITIVITY_METRICS = ["peak_accuracy", "rounds_to_convergence", "total_transmis
                        "bytes_communicated", "deferral_rate_mean"]
 
 
-def load_results(results_dir):
+def is_sweep_run(d):
+    """True for a theta_rho sensitivity-sweep run (theta_rho overridden on the command line)."""
+    if "theta_rho" in (d.get("provenance") or {}).get("overrides", {}):
+        return True
+    return "_rho" in d.get("_file", "")          # legacy files without provenance
+
+
+def load_results(results_dir, kind="main"):
+    """
+    kind="main":  main grid + ablations (sweep runs excluded)
+    kind="sweep": theta_rho sensitivity-sweep runs only
+    kind="all":   everything
+    The sweep runs are also method "rafa_fl" at the primary condition, so
+    without this split they are pooled into (and, through the per-seed
+    pairing, silently replace) the main RAFA-FL runs at alpha=0.5, N=50, drift.
+    """
     runs = []
     for path in sorted(glob.glob(os.path.join(results_dir, "*.json"))):
         try:
             with open(path) as f:
                 d = json.load(f)
+            d["_file"] = os.path.basename(path)
+            if kind != "all" and is_sweep_run(d) != (kind == "sweep"):
+                continue
             # Runs written by the current pipeline carry a "valid" flag; a run
             # that lost clients to failures is excluded. Legacy files without
             # the flag are kept so existing tables still regenerate.
@@ -105,6 +123,10 @@ def print_sensitivity_table(rows):
 def _paired_by_seed(groups, key, metric):
     if key not in groups:
         return None
+    seeds = [g["seed"] for g in groups[key]]
+    if len(seeds) != len(set(seeds)):
+        raise ValueError(f"duplicate seeds in group {key}: {sorted(seeds)} -- "
+                         f"runs from different configurations are being pooled")
     return {g["seed"]: g["_summary"][metric] for g in groups[key]}
 
 
@@ -270,7 +292,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results_dir", default="results/")
     ap.add_argument("--metric", default="peak_accuracy",
-                    choices=["peak_accuracy", "final_accuracy", "final_macro_f1",
+                    choices=["peak_accuracy", "final10_accuracy", "post_drift_mean_accuracy",
+                             "post_drift_min_accuracy", "post_drift_std_accuracy",
+                             "final_accuracy", "final_macro_f1",
                              "rounds_to_convergence", "total_transmissions",
                              "bytes_communicated", "convergence_speed"])
     ap.add_argument("--out_json", default=None, help="optional path to dump the grid table as JSON")
@@ -283,7 +307,7 @@ def main():
                     help="print/export Table 5.6 (theta_rho sweep) from --results_dir instead of the main grid")
     args = ap.parse_args()
 
-    runs = load_results(args.results_dir)
+    runs = load_results(args.results_dir, kind="sweep" if args.sensitivity else "main")
     if not runs:
         print(f"No result JSON files found in {args.results_dir}")
         return
