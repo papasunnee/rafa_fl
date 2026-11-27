@@ -23,6 +23,18 @@ def rounds_to_convergence(accuracy_curve, peak_fraction=0.95, sustain=5):
     return len(acc)
 
 
+def rounds_to_fraction_of_peak(accuracy_curve, fraction=0.98):
+    """
+    First round (1-indexed) at which accuracy reaches `fraction` * peak, with
+    no sustain requirement. With fraction=0.98 this is the closest reading of
+    H2's "converge to within 2% of peak accuracy".
+    """
+    acc = np.asarray(accuracy_curve, dtype=np.float64)
+    if len(acc) == 0:
+        return None
+    return int(np.argmax(acc >= fraction * acc.max())) + 1
+
+
 def bytes_communicated(total_transmissions, param_count, dtype_bytes=4):
     """Bytes proxy = transmissions * parameter count * bytes-per-float."""
     return total_transmissions * param_count * dtype_bytes
@@ -85,6 +97,7 @@ def summarise_run(accuracy_curve, f1_curve, total_transmissions, param_count,
         "final_accuracy": float(acc[-1]) if len(acc) else None,
         "final_macro_f1": float(f1_curve[-1]) if len(f1_curve) else None,
         "rounds_to_convergence": rounds_to_convergence(acc),
+        "rounds_to_98pct_peak": rounds_to_fraction_of_peak(acc, 0.98),
         "total_transmissions": int(total_transmissions),
         "bytes_communicated": bytes_communicated(total_transmissions, param_count),
         "convergence_speed": convergence_speed(acc),

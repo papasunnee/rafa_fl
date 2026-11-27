@@ -7,7 +7,7 @@ Figures:
   5.3 Per-client deferral rate distribution (primary condition, RAFA-FL)
   5.4 Ablation study accuracy over rounds -- full agent vs ablated variants
   5.5 Scalability: transmissions vs N in {10, 50, 100}
-  5.6 Sensitivity analysis: key metrics vs theta_rho
+  5.6 Sensitivity to theta_rho: post-drift accuracy, transmissions, deferral rate
   5.7 Mean accuracy after round 50 by alpha, drift vs no drift (N=50)
   5.8 RAFA-FL decision-rule mix before/after drift, drifted vs unaffected clients
 
@@ -271,26 +271,32 @@ def fig_5_6_sensitivity(sensitivity_dir, out_path):
         print(f"[5.6] SKIPPED -- no theta_rho grouping found in {sensitivity_dir}")
         return
 
+    # (summary key, y label, scale): accuracy and deferral rate shown in percent.
     metrics = [
-        ("peak_accuracy", "Peak accuracy"),
-        ("total_transmissions", "Total transmissions"),
-        ("rounds_to_convergence", "Rounds to convergence"),
+        ("post_drift_mean_accuracy", "Mean test accuracy, rounds 51-100 (%)", 100.0),
+        ("total_transmissions", "Total transmissions", 1.0),
+        ("deferral_rate_mean", "Mean per-client deferral rate (%)", 100.0),
     ]
+    calibrated = 0.20
     fig, axes = plt.subplots(1, len(metrics), figsize=(13, 4))
-    for ax, (key, ylabel) in zip(axes, metrics):
+    for ax, (key, ylabel, scale) in zip(axes, metrics):
         means, stds = [], []
         for theta in thetas:
             group = groups[(theta,)]
-            vals = [g["_summary"][key] for g in group if g["_summary"].get(key) is not None]
+            vals = [scale * g["_summary"][key] for g in group if g["_summary"].get(key) is not None]
             means.append(np.mean(vals) if vals else np.nan)
             stds.append(np.std(vals) if vals else 0.0)
         ax.errorbar(thetas, means, yerr=stds,
                    marker="o", markersize=5, color=COLORS["rafa_fl"], linewidth=1.8, capsize=3)
+        ax.axvline(calibrated, color=MUTED, linestyle=":", linewidth=1)
         ax.set_xlabel("$\\theta_\\rho$ (resource threshold)")
         ax.set_ylabel(ylabel)
         _style_axes(ax)
-    fig.suptitle(f"Sensitivity analysis: key metrics vs $\\theta_\\rho$ "
-                f"($\\alpha$={EXPERIMENT.primary_alpha}, N={EXPERIMENT.primary_n}, drift)", color=INK)
+    axes[0].text(calibrated, axes[0].get_ylim()[0], " calibrated value",
+                 color=MUTED, fontsize=8, va="bottom")
+    fig.suptitle(f"Sensitivity to $\\theta_\\rho$ "
+                f"($\\alpha$={EXPERIMENT.primary_alpha}, N={EXPERIMENT.primary_n}, drift; "
+                f"mean ± std over 5 seeds)", color=INK)
     _savefig(fig, out_path)
 
 

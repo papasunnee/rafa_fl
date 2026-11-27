@@ -290,3 +290,16 @@ Metric definitions: *peak acc* = best single round; *final-10 acc* = mean of rou
 | 456 | 0.944 | 0.942 | 0.9437 | 0.002 | 0.7327 | 0.7647 | 0.7724 | 0.0398 |
 | 789 | 0.9315 | 0.9311 | 0.9264 | 0.0051 | 0.7287 | 0.7285 | 0.7252 | 0.0035 |
 | 1024 | 0.9325 | 0.9328 | 0.9318 | 0.001 | 0.7854 | 0.7835 | 0.7854 | 0.0019 |
+
+## Table 5.11 — H2: rounds to convergence at α=0.1, N=50, RAFA-FL vs FedAvg and FedProx (paired t-test)
+
+| Measure | Condition | RAFA-FL | Baseline | Baseline mean | t | p |
+|---|---|---|---|---|---|---|
+| Rounds to 95% (sustained) | no drift | 77.8 | FedAvg | 83.8 | -0.82 | 0.459 |
+| Rounds to 95% (sustained) | no drift | 77.8 | FedProx | 76.2 | 0.20 | 0.853 |
+| Rounds to 95% (sustained) | drift | 88.8 | FedAvg | 100.0 | -1.00 | 0.374 |
+| Rounds to 95% (sustained) | drift | 88.8 | FedProx | 100.0 | -1.00 | 0.374 |
+| Rounds to 98% of peak | no drift | 59.0 | FedAvg | 63.2 | -1.35 | 0.248 |
+| Rounds to 98% of peak | no drift | 59.0 | FedProx | 60.8 | -1.62 | 0.181 |
+| Rounds to 98% of peak | drift | 39.8 | FedAvg | 48.6 | -2.26 | 0.087 |
+| Rounds to 98% of peak | drift | 39.8 | FedProx | 48.6 | -2.26 | 0.087 |
